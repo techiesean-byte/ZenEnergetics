@@ -1,6 +1,7 @@
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { MusicPlayer } from "../MusicPlayer";
+import { ContactWidget } from "../ContactWidget";
 import { ReactNode } from "react";
 
 interface LayoutProps {
@@ -16,6 +17,7 @@ export function Layout({ children }: LayoutProps) {
       </main>
       <Footer />
       <MusicPlayer />
+      <ContactWidget />
     </div>
   );
 }
