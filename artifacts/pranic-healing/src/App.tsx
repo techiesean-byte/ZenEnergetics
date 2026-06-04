@@ -14,6 +14,7 @@ import Testimonials from "@/pages/Testimonials";
 import Book from "@/pages/Book";
 import Blog from "@/pages/Blog";
 import BlogArticle from "@/pages/BlogArticle";
+import About from "@/pages/About";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ function Router() {
         <Route path="/book" component={Book} />
         <Route path="/blog" component={Blog} />
         <Route path="/blog/:slug" component={BlogArticle} />
+        <Route path="/about" component={About} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
