@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, Leaf, Sparkles, Heart } from "lucide-react";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 
 import heroImg from "../assets/hero.png";
 import whatIs1Img from "../assets/what-is-1.png";
@@ -199,6 +200,8 @@ export default function Home() {
           </h2>
         </div>
       </section>
+
+      <NewsletterSignup variant="banner" />
     </div>
   );
 }

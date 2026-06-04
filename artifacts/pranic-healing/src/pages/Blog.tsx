@@ -5,6 +5,7 @@ import { Clock, ArrowRight, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { articles, categories } from "@/data/articles";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24 },
@@ -184,6 +185,9 @@ export default function Blog() {
           </Link>
         </motion.div>
       </div>
+
+      {/* Newsletter Banner */}
+      <NewsletterSignup variant="banner" />
     </div>
   );
 }
