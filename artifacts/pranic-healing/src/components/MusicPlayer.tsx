@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Play, Pause, SkipForward, Music, VolumeX, Volume2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const tracks = [
   "Crystal Bowl Meditation",
@@ -15,15 +16,15 @@ export function MusicPlayer() {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
+  const { t } = useLanguage();
 
-  // Show player after a short delay
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 1500);
     return () => clearTimeout(timer);
   }, []);
 
   const togglePlay = () => setIsPlaying(!isPlaying);
-  
+
   const toggleMute = () => {
     if (isMuted && !isPlaying) setIsPlaying(true);
     setIsMuted(!isMuted);
@@ -38,7 +39,7 @@ export function MusicPlayer() {
   if (!isVisible) return null;
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       className="fixed bottom-6 right-6 z-50 flex items-center bg-card shadow-lg border border-primary/20 rounded-full py-2 px-4 gap-4"
@@ -47,7 +48,7 @@ export function MusicPlayer() {
       <div className="flex items-center gap-2">
         <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
           {isPlaying && !isMuted ? (
-            <motion.div 
+            <motion.div
               animate={{ rotate: 360 }}
               transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
               className="absolute inset-0 rounded-full border-2 border-primary border-t-transparent border-b-transparent"
@@ -55,18 +56,20 @@ export function MusicPlayer() {
           ) : null}
           <Music size={14} />
         </div>
-        
+
         <div className="flex flex-col w-32 hidden sm:flex overflow-hidden">
-          <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wider">Meditation Radio</span>
+          <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wider">
+            {isPlaying && !isMuted ? t.music.playing : t.music.muted}
+          </span>
           <div className="relative h-4 overflow-hidden">
             <AnimatePresence mode="popLayout">
-              <motion.span 
+              <motion.span
                 key={currentTrackIndex}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 className="text-xs font-medium truncate block absolute"
-                data-testid={`text-current-track`}
+                data-testid="text-current-track"
               >
                 {tracks[currentTrackIndex]}
               </motion.span>
@@ -82,14 +85,12 @@ export function MusicPlayer() {
             <motion.div
               key={i}
               className="w-1 bg-primary rounded-t-sm"
-              animate={{
-                height: ["20%", "100%", "40%", "80%", "20%"]
-              }}
+              animate={{ height: ["20%", "100%", "40%", "80%", "20%"] }}
               transition={{
                 duration: 1 + i * 0.2,
                 repeat: Infinity,
                 repeatType: "reverse",
-                ease: "easeInOut"
+                ease: "easeInOut",
               }}
             />
           ))}
@@ -97,21 +98,22 @@ export function MusicPlayer() {
       )}
 
       <div className="flex items-center gap-1">
-        <button 
+        <button
           onClick={toggleMute}
           className="p-2 text-foreground/60 hover:text-primary transition-colors"
           data-testid="button-music-mute"
+          aria-label={isMuted ? t.music.unmute : t.music.muted}
         >
           {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
         </button>
-        <button 
+        <button
           onClick={togglePlay}
           className="p-2 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-colors shadow-md"
           data-testid="button-music-play"
         >
           {isPlaying && !isMuted ? <Pause size={16} /> : <Play size={16} />}
         </button>
-        <button 
+        <button
           onClick={nextTrack}
           className="p-2 text-foreground/60 hover:text-primary transition-colors"
           data-testid="button-music-next"

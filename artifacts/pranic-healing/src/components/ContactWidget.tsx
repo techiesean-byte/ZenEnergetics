@@ -4,15 +4,9 @@ import { MessageCircle, X, Send, Loader2, CheckCircle2, ChevronDown } from "luci
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type Step = "closed" | "open" | "sending" | "done";
-
-const QUICK_QUESTIONS = [
-  "What should I expect in a first session?",
-  "Do you offer distance healing?",
-  "How many sessions will I need?",
-  "Do you work with children?",
-];
 
 export function ContactWidget() {
   const [step, setStep] = useState<Step>("closed");
@@ -22,6 +16,14 @@ export function ContactWidget() {
   const [errors, setErrors] = useState<{ email?: string; message?: string }>({});
   const [unread, setUnread] = useState(true);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const { t } = useLanguage();
+
+  const QUICK_QUESTIONS = [
+    t.contact.quick_q1,
+    t.contact.quick_q2,
+    t.contact.quick_q3,
+    t.contact.quick_q4,
+  ];
 
   useEffect(() => {
     if (step === "open" && textareaRef.current && message) {
@@ -31,25 +33,15 @@ export function ContactWidget() {
 
   function validate() {
     const e: typeof errors = {};
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = "Please enter a valid email.";
-    if (!message.trim()) e.message = "Please write a message.";
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = t.newsletter.email_placeholder;
+    if (!message.trim()) e.message = t.contact.message_placeholder;
     setErrors(e);
     return Object.keys(e).length === 0;
   }
 
-  function handleOpen() {
-    setStep("open");
-    setUnread(false);
-  }
-
-  function handleClose() {
-    setStep("closed");
-  }
-
-  function handleQuick(q: string) {
-    setMessage(q);
-    setTimeout(() => textareaRef.current?.focus(), 50);
-  }
+  function handleOpen() { setStep("open"); setUnread(false); }
+  function handleClose() { setStep("closed"); }
+  function handleQuick(q: string) { setMessage(q); setTimeout(() => textareaRef.current?.focus(), 50); }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -59,10 +51,7 @@ export function ContactWidget() {
   }
 
   function handleReset() {
-    setName("");
-    setEmail("");
-    setMessage("");
-    setErrors({});
+    setName(""); setEmail(""); setMessage(""); setErrors({});
     setStep("open");
   }
 
@@ -82,17 +71,17 @@ export function ContactWidget() {
             <div className="bg-primary px-5 py-4 flex items-start justify-between">
               <div>
                 <p className="text-primary-foreground font-serif text-lg font-light leading-tight">
-                  We're here for you.
+                  {t.contact.panel_title}
                 </p>
                 <p className="text-primary-foreground/75 text-xs mt-0.5">
-                  Usually responds within a few hours
+                  {t.contact.panel_subtitle}
                 </p>
               </div>
               <button
                 onClick={handleClose}
                 className="text-primary-foreground/70 hover:text-primary-foreground transition-colors mt-0.5"
                 data-testid="button-chat-close"
-                aria-label="Close chat"
+                aria-label={t.common.close}
               >
                 <X size={18} />
               </button>
@@ -112,24 +101,23 @@ export function ContactWidget() {
                       <CheckCircle2 size={24} className="text-primary" />
                     </div>
                     <p className="font-serif text-lg font-light text-foreground">
-                      Message received{name ? `, ${name.split(" ")[0]}` : ""}.
+                      {t.contact.success_title}{name ? `, ${name.split(" ")[0]}` : ""}.
                     </p>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      We will be in touch at <span className="text-foreground font-medium">{email}</span> shortly. Take good care.
+                      {t.contact.success_body} <span className="text-foreground font-medium">{email}</span> {t.contact.success_body2}
                     </p>
                     <button
                       onClick={handleReset}
                       className="mt-2 text-xs text-primary hover:underline"
                       data-testid="button-chat-send-another"
                     >
-                      Send another message
+                      {t.contact.send_another}
                     </button>
                   </motion.div>
                 ) : (
                   <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                    {/* Quick questions */}
                     <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">
-                      Common questions
+                      {t.contact.quick_label}
                     </p>
                     <div className="flex flex-col gap-1.5 mb-4">
                       {QUICK_QUESTIONS.map(q => (
@@ -150,11 +138,11 @@ export function ContactWidget() {
 
                     <div className="border-t border-border pt-4">
                       <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">
-                        Or write your own
+                        {t.contact.form_label}
                       </p>
                       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                         <Input
-                          placeholder="Your name (optional)"
+                          placeholder={t.contact.name_placeholder}
                           value={name}
                           onChange={e => setName(e.target.value)}
                           className="text-sm bg-background"
@@ -162,7 +150,7 @@ export function ContactWidget() {
                         />
                         <div>
                           <Input
-                            placeholder="Your email address"
+                            placeholder={t.contact.email_placeholder}
                             type="email"
                             value={email}
                             onChange={e => { setEmail(e.target.value); setErrors(v => ({ ...v, email: undefined })); }}
@@ -174,7 +162,7 @@ export function ContactWidget() {
                         <div>
                           <Textarea
                             ref={textareaRef}
-                            placeholder="What's on your mind?"
+                            placeholder={t.contact.message_placeholder}
                             value={message}
                             onChange={e => { setMessage(e.target.value); setErrors(v => ({ ...v, message: undefined })); }}
                             rows={3}
@@ -189,11 +177,10 @@ export function ContactWidget() {
                           className="bg-primary text-primary-foreground hover:bg-primary/90 w-full"
                           data-testid="button-chat-submit"
                         >
-                          {step === "sending" ? (
-                            <Loader2 size={15} className="animate-spin" />
-                          ) : (
-                            <><Send size={14} className="mr-2" /> Send Message</>
-                          )}
+                          {step === "sending"
+                            ? <Loader2 size={15} className="animate-spin" />
+                            : <><Send size={14} className="mr-2" />{t.contact.send}</>
+                          }
                         </Button>
                       </form>
                     </div>
@@ -209,7 +196,7 @@ export function ContactWidget() {
       <motion.button
         onClick={step === "closed" ? handleOpen : handleClose}
         data-testid="button-chat-toggle"
-        aria-label="Open contact chat"
+        aria-label={t.contact.panel_title}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         className="relative w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center"
@@ -225,8 +212,6 @@ export function ContactWidget() {
             </motion.div>
           )}
         </AnimatePresence>
-
-        {/* Unread dot */}
         <AnimatePresence>
           {unread && step === "closed" && (
             <motion.span

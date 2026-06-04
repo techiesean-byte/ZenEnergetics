@@ -1,8 +1,11 @@
 import { Link } from "wouter";
 import { Facebook, Instagram, Twitter, Mail } from "lucide-react";
 import { NewsletterSignup } from "@/components/NewsletterSignup";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="bg-muted mt-auto border-t">
       {/* Newsletter strip */}
@@ -11,10 +14,10 @@ export function Footer() {
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6 max-w-3xl">
             <div className="flex-1 min-w-0">
               <h4 className="font-serif text-xl font-light text-foreground mb-1">
-                Stay connected to your healing journey.
+                {t.newsletter.footer_headline}
               </h4>
               <p className="text-sm text-muted-foreground">
-                Weekly wisdom, gentle practices, and exclusive offers — straight to your inbox.
+                {t.newsletter.footer_subtitle}
               </p>
             </div>
             <div className="w-full md:w-72 flex-shrink-0">
@@ -29,9 +32,7 @@ export function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="space-y-4 md:col-span-2">
               <h3 className="font-serif text-2xl font-medium text-primary">Pranic Healing</h3>
-              <p className="text-muted-foreground max-w-sm">
-                A comprehensive pranic healing resource that guides you from curiosity to transformation. Discover the power of subtle energy to heal physical, emotional, and mental ailments.
-              </p>
+              <p className="text-muted-foreground max-w-sm">{t.footer.tagline}</p>
               <div className="flex gap-4 text-muted-foreground pt-2">
                 <a href="#" className="hover:text-primary transition-colors" data-testid="link-social-facebook"><Facebook size={20} /></a>
                 <a href="#" className="hover:text-primary transition-colors" data-testid="link-social-instagram"><Instagram size={20} /></a>
@@ -41,29 +42,29 @@ export function Footer() {
             </div>
 
             <div className="space-y-4">
-              <h4 className="font-serif text-lg font-medium">Explore</h4>
+              <h4 className="font-serif text-lg font-medium">{t.footer.explore}</h4>
               <nav className="flex flex-col space-y-2 text-sm text-muted-foreground">
-                <Link href="/what-is-pranic-healing" className="hover:text-primary transition-colors" data-testid="link-footer-what-is">What is Pranic Healing</Link>
-                <Link href="/services" className="hover:text-primary transition-colors" data-testid="link-footer-services">Services</Link>
-                <Link href="/videos" className="hover:text-primary transition-colors" data-testid="link-footer-videos">Videos</Link>
-                <Link href="/gallery" className="hover:text-primary transition-colors" data-testid="link-footer-gallery">Gallery</Link>
-                <Link href="/blog" className="hover:text-primary transition-colors" data-testid="link-footer-blog">Articles</Link>
+                <Link href="/what-is-pranic-healing" className="hover:text-primary transition-colors" data-testid="link-footer-what-is">{t.nav.what_is}</Link>
+                <Link href="/services" className="hover:text-primary transition-colors" data-testid="link-footer-services">{t.nav.services}</Link>
+                <Link href="/videos" className="hover:text-primary transition-colors" data-testid="link-footer-videos">{t.nav.videos}</Link>
+                <Link href="/gallery" className="hover:text-primary transition-colors" data-testid="link-footer-gallery">{t.nav.gallery}</Link>
+                <Link href="/blog" className="hover:text-primary transition-colors" data-testid="link-footer-blog">{t.nav.articles}</Link>
               </nav>
             </div>
 
             <div className="space-y-4">
-              <h4 className="font-serif text-lg font-medium">Support</h4>
+              <h4 className="font-serif text-lg font-medium">{t.footer.support}</h4>
               <nav className="flex flex-col space-y-2 text-sm text-muted-foreground">
-                <Link href="/testimonials" className="hover:text-primary transition-colors" data-testid="link-footer-testimonials">Testimonials</Link>
-                <Link href="/faq" className="hover:text-primary transition-colors" data-testid="link-footer-faq">FAQ</Link>
-                <Link href="/book" className="hover:text-primary transition-colors" data-testid="link-footer-book">Book a Session</Link>
+                <Link href="/testimonials" className="hover:text-primary transition-colors" data-testid="link-footer-testimonials">{t.nav.testimonials}</Link>
+                <Link href="/faq" className="hover:text-primary transition-colors" data-testid="link-footer-faq">{t.nav.faq}</Link>
+                <Link href="/book" className="hover:text-primary transition-colors" data-testid="link-footer-book">{t.nav.book_session}</Link>
               </nav>
             </div>
           </div>
 
           <div className="mt-12 pt-8 border-t text-center text-sm text-muted-foreground flex flex-col md:flex-row justify-between items-center gap-4">
-            <p data-testid="text-copyright">&copy; {new Date().getFullYear()} Pranic Healing Sanctuary. All rights reserved.</p>
-            <p className="italic font-serif text-base text-primary">"Healing is a matter of time, but it is sometimes also a matter of opportunity."</p>
+            <p data-testid="text-copyright">&copy; {new Date().getFullYear()} {t.footer.copyright}</p>
+            <p className="italic font-serif text-base text-primary">{t.footer.quote}</p>
           </div>
         </div>
       </div>
