@@ -12,6 +12,8 @@ import Gallery from "@/pages/Gallery";
 import Services from "@/pages/Services";
 import Testimonials from "@/pages/Testimonials";
 import Book from "@/pages/Book";
+import Blog from "@/pages/Blog";
+import BlogArticle from "@/pages/BlogArticle";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +29,8 @@ function Router() {
         <Route path="/services" component={Services} />
         <Route path="/testimonials" component={Testimonials} />
         <Route path="/book" component={Book} />
+        <Route path="/blog" component={Blog} />
+        <Route path="/blog/:slug" component={BlogArticle} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
