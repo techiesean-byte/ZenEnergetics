@@ -1,0 +1,62 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "eKhCv3iMQRO0YOEowt4Mq"
+uri = "file://artifacts/pranic-healing/src/assets/hero.png"
+type = "image"
+title = "glowing healing energy hands"
+
+[[generated]]
+id = "rroVWKgb5KSTJaZql7qcp"
+uri = "file://artifacts/pranic-healing/src/assets/what-is-1.png"
+type = "image"
+title = "ethereal spiritual wellness"
+
+[[generated]]
+id = "VK-gz8fIDjtqGg9Rqncih"
+uri = "file://artifacts/pranic-healing/src/assets/what-is-2.png"
+type = "image"
+title = "pranic healing session"
+
+[[generated]]
+id = "JIfCDQZ-Hptg5ykeQtVZY"
+uri = "file://artifacts/pranic-healing/src/assets/video-thumb-1.png"
+type = "image"
+title = "lotus pose golden light"
+
+[[generated]]
+id = "6GjUjXl2zvt69-cdqQKCG"
+uri = "file://artifacts/pranic-healing/src/assets/video-thumb-2.png"
+type = "image"
+title = "hands healing distance energy"
+
+[[generated]]
+id = "W958ObnVztK-EoKPNTfA7"
+uri = "file://artifacts/pranic-healing/src/assets/video-thumb-3.png"
+type = "image"
+title = "glowing chakras aligned"
+
+[[generated]]
+id = "8yZWl2IlcSjGVRx7aLBXU"
+uri = "file://artifacts/pranic-healing/src/assets/video-thumb-4.png"
+type = "image"
+title = "serene meditation space"
+
+[[generated]]
+id = "nbTuHwkYCpvYN29PL-2Zm"
+uri = "file://artifacts/pranic-healing/src/assets/video-thumb-5.png"
+type = "image"
+title = "cleansing aura visualization"
+
+[[generated]]
+id = "cui6vjuC9FUQv_UyQEkrZ"
+uri = "file://artifacts/pranic-healing/src/assets/video-thumb-6.png"
+type = "image"
+title = "gentle healing hands"
+
+[[generated]]
+id = "LdHT1rxTStJ9wPafkmoTr"
+uri = "file://artifacts/pranic-healing/src/assets/gallery-1.png"
+type = "image"
+title = "pranic healing hands"

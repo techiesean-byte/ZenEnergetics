@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Pranic Healing"
+version = "1.0.0"
+id = "artifacts/pranic-healing"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18858
+
+[services.development]
+run = "pnpm --filter @workspace/pranic-healing run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/pranic-healing", "run", "build" ]
+publicDir = "artifacts/pranic-healing/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18858"
+BASE_PATH = "/"
