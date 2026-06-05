@@ -199,7 +199,7 @@ export default function Home() {
                 <img
                   src={healerPhoto}
                   alt="Rosalyn Piza — Pranic Healer"
-                  className="w-full h-[480px] object-cover object-right-top"
+                  className="w-full h-[480px] object-cover object-top"
                   data-testid="img-healer-home"
                 />
               </div>

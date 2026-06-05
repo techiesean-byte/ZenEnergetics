@@ -70,7 +70,7 @@ export default function About() {
               <img
                 src={healerImg}
                 alt="Pranic healer portrait"
-                className="w-full h-[520px] object-cover object-right-top"
+                className="w-full h-[520px] object-cover object-top"
                 data-testid="img-healer-portrait"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent" />
