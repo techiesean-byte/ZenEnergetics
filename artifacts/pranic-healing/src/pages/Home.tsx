@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, Leaf, Sparkles, Heart, Star } from "lucide-react";
 import { NewsletterSignup } from "@/components/NewsletterSignup";
-import { AmbientPlayer } from "@/components/AmbientPlayer";
+
 import { DiscoveryPopup } from "@/components/DiscoveryPopup";
 import { AuraSlider } from "@/components/AuraSlider";
 import { ScrollBookCTA } from "@/components/ScrollBookCTA";
@@ -266,9 +266,6 @@ export default function Home() {
       </section>
 
       <NewsletterSignup variant="banner" />
-
-      {/* Ambient Music Player — auto-plays on scroll */}
-      <AmbientPlayer />
 
       {/* Discovery Call popup — appears after 30 seconds */}
       <DiscoveryPopup />

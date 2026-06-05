@@ -312,31 +312,31 @@ export function ContactWidget() {
           aria-label={t.contact.panel_title}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="relative w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center"
+          className="relative w-7 h-7 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center"
         >
           <AnimatePresence mode="wait">
             {step !== "closed" ? (
               <motion.div key="close"
                 initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }}
                 exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.18 }}>
-                <ChevronDown size={22} />
+                <ChevronDown size={11} />
               </motion.div>
             ) : (
               <motion.div key="open"
                 initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }}
                 exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.18 }}>
-                <MessageCircle size={22} />
+                <MessageCircle size={11} />
               </motion.div>
             )}
           </AnimatePresence>
 
-          {/* Unread badge — shown only when there's a new message prompt */}
+          {/* Unread badge */}
           <AnimatePresence>
             {unread && step === "closed" && (
               <motion.span
                 key="dot"
                 initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
-                className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-destructive border-2 border-card"
+                className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-destructive border border-card"
               />
             )}
           </AnimatePresence>
@@ -347,7 +347,7 @@ export function ContactWidget() {
               <motion.span
                 key="presence"
                 initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
-                className={`absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full border-2 border-card ${
+                className={`absolute bottom-0 right-0 w-2 h-2 rounded-full border border-card ${
                   online ? "bg-emerald-400" : "bg-muted-foreground/60"
                 }`}
               />
