@@ -118,7 +118,7 @@ export function ContactWidget() {
       dragMomentum={false}
       dragElastic={0}
       style={{ touchAction: "none" }}
-      className="fixed bottom-6 left-6 z-50 flex flex-col items-start gap-3"
+      className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3"
     >
       <AnimatePresence>
         {(step === "open" || step === "sending" || step === "done") && (
