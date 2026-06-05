@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { LanguageSelector } from "@/components/LanguageSelector";
+
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export function Navbar() {
@@ -52,7 +52,6 @@ export function Navbar() {
         </nav>
 
         <div className="hidden lg:flex items-center gap-3">
-          <LanguageSelector />
           <Link href="/book" data-testid="link-desktop-book">
             <Button className="bg-primary text-primary-foreground hover:bg-primary/90 font-medium whitespace-nowrap">
               {t.nav.book_session}
@@ -60,9 +59,8 @@ export function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile: language + hamburger */}
+        {/* Mobile: hamburger */}
         <div className="lg:hidden flex items-center gap-2">
-          <LanguageSelector />
           <button
             className="p-2 text-foreground"
             onClick={() => setIsOpen(!isOpen)}
