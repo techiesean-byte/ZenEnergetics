@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AvailabilityWidget, SelectedSlot } from "@/components/AvailabilityWidget";
 import { IntakeQuestionnaire, IntakeAnswers } from "@/components/IntakeQuestionnaire";
+import { ReferralWidget } from "@/components/ReferralWidget";
 
 const DAY_NAMES = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 const MONTH_NAMES = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -234,8 +235,16 @@ export default function Book() {
             </div>
           </motion.div>
 
+          {/* Referral widget */}
           <motion.div
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.65 }}
+            className="mt-6"
+          >
+            <ReferralWidget senderName={submittedName} />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}
             className="text-center mt-8"
           >
             <p className="text-sm text-muted-foreground mb-4">
