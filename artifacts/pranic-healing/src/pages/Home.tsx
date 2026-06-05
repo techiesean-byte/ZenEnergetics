@@ -5,6 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { ArrowRight, Leaf, Sparkles, Heart, Star } from "lucide-react";
 import { NewsletterSignup } from "@/components/NewsletterSignup";
 import { AmbientPlayer } from "@/components/AmbientPlayer";
+import { DiscoveryPopup } from "@/components/DiscoveryPopup";
 
 import heroImg from "../assets/hero.png";
 import whatIs1Img from "../assets/what-is-1.png";
@@ -265,6 +266,9 @@ export default function Home() {
 
       {/* Ambient Music Player — auto-plays on scroll */}
       <AmbientPlayer />
+
+      {/* Discovery Call popup — appears after 30 seconds */}
+      <DiscoveryPopup />
     </div>
   );
 }
