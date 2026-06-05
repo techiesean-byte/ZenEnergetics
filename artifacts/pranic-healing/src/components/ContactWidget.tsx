@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, ChevronDown, Clock, X, RotateCcw } from "lucide-react";
+import { MessageCircle, ChevronDown, Clock, X, RotateCcw, ArrowLeft, Send, Loader2, CheckCircle2, Mail } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 /* ── Presence ────────────────────────────────────────────────── */
@@ -86,6 +86,11 @@ export function ContactWidget() {
   const [unread, setUnread] = useState(true);
   const [messages, setMessages] = useState<Message[]>([{ role: "bot", text: GREETING }]);
   const [answered, setAnswered] = useState(false);
+  const [view, setView] = useState<"faq" | "contact" | "sent">("faq");
+  const [firstName, setFirstName] = useState("");
+  const [email, setEmail] = useState("");
+  const [contactErrors, setContactErrors] = useState<{ firstName?: string; email?: string }>({});
+  const [sending, setSending] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const { t } = useLanguage();
 
@@ -120,6 +125,22 @@ export function ContactWidget() {
   function handleReset() {
     setMessages([{ role: "bot", text: GREETING }]);
     setAnswered(false);
+  }
+
+  function handleContactSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const errs: typeof contactErrors = {};
+    if (!firstName.trim()) errs.firstName = "First name is required";
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errs.email = "Valid email is required";
+    setContactErrors(errs);
+    if (Object.keys(errs).length > 0) return;
+    setSending(true);
+    setTimeout(() => { setSending(false); setView("sent"); }, 1400);
+  }
+
+  function handleBackToFaq() {
+    setView("faq");
+    setFirstName(""); setEmail(""); setContactErrors({});
   }
 
   return (
@@ -213,48 +234,127 @@ export function ContactWidget() {
               <div ref={bottomRef} />
             </div>
 
-            {/* Quick replies / reset */}
+            {/* Bottom panel — FAQ questions, contact form, or sent confirmation */}
             <div className="flex-shrink-0 border-t border-border px-4 py-3 bg-background/60">
-              {answered ? (
-                <div className="flex flex-col gap-2">
-                  <p className="text-xs text-muted-foreground text-center">Ask another question</p>
-                  <div className="grid grid-cols-1 gap-1.5 max-h-40 overflow-y-auto">
-                    {FAQS.map(faq => (
-                      <button
-                        key={faq.q}
-                        onClick={() => handleQuestion(faq)}
-                        className="text-left text-xs px-3 py-2 rounded-lg border border-border bg-muted/50 text-muted-foreground hover:border-primary/50 hover:text-foreground transition-all duration-150"
-                      >
-                        {faq.q}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <div className="flex flex-col gap-1.5">
-                  <p className="text-xs text-muted-foreground mb-1">Common questions</p>
-                  {FAQS.map(faq => (
-                    <button
-                      key={faq.q}
-                      onClick={() => handleQuestion(faq)}
-                      className="text-left text-xs px-3 py-2 rounded-lg border border-border bg-muted/50 text-muted-foreground hover:border-primary/50 hover:text-foreground transition-all duration-150"
-                    >
-                      {faq.q}
-                    </button>
-                  ))}
-                </div>
-              )}
+              <AnimatePresence mode="wait">
 
-              {messages.length > 1 && (
-                <button
-                  onClick={handleReset}
-                  className="mt-3 flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors mx-auto"
-                  data-testid="button-chat-reset"
-                >
-                  <RotateCcw size={11} />
-                  Start over
-                </button>
-              )}
+                {/* ── Sent confirmation ── */}
+                {view === "sent" && (
+                  <motion.div key="sent"
+                    initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}
+                    className="flex flex-col items-center text-center gap-2 py-3"
+                  >
+                    <div className="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center">
+                      <CheckCircle2 size={20} className="text-primary" />
+                    </div>
+                    <p className="font-serif text-base font-light text-foreground">Message sent, {firstName}!</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      Rosalyn will get back to you at <span className="font-medium text-foreground">{email}</span> as soon as possible.
+                    </p>
+                    <button
+                      onClick={handleBackToFaq}
+                      className="mt-1 flex items-center gap-1 text-xs text-primary hover:underline"
+                    >
+                      <RotateCcw size={11} /> Back to questions
+                    </button>
+                  </motion.div>
+                )}
+
+                {/* ── Contact form ── */}
+                {view === "contact" && (
+                  <motion.div key="contact"
+                    initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}
+                  >
+                    <button
+                      onClick={handleBackToFaq}
+                      className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors mb-3"
+                    >
+                      <ArrowLeft size={11} /> Back to questions
+                    </button>
+                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">
+                      Send Rosalyn a message
+                    </p>
+                    <form onSubmit={handleContactSubmit} className="flex flex-col gap-2">
+                      <div>
+                        <input
+                          type="text"
+                          placeholder="First name"
+                          value={firstName}
+                          onChange={e => { setFirstName(e.target.value); setContactErrors(v => ({ ...v, firstName: undefined })); }}
+                          className={`w-full text-sm px-3 py-2 rounded-lg border bg-background outline-none focus:ring-1 focus:ring-primary transition-colors ${contactErrors.firstName ? "border-destructive" : "border-border"}`}
+                          data-testid="input-contact-firstname"
+                        />
+                        {contactErrors.firstName && <p className="text-xs text-destructive mt-1">{contactErrors.firstName}</p>}
+                      </div>
+                      <div>
+                        <input
+                          type="email"
+                          placeholder="Email address"
+                          value={email}
+                          onChange={e => { setEmail(e.target.value); setContactErrors(v => ({ ...v, email: undefined })); }}
+                          className={`w-full text-sm px-3 py-2 rounded-lg border bg-background outline-none focus:ring-1 focus:ring-primary transition-colors ${contactErrors.email ? "border-destructive" : "border-border"}`}
+                          data-testid="input-contact-email"
+                        />
+                        {contactErrors.email && <p className="text-xs text-destructive mt-1">{contactErrors.email}</p>}
+                      </div>
+                      <button
+                        type="submit"
+                        disabled={sending}
+                        className="mt-1 w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground text-sm font-medium py-2 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-70"
+                        data-testid="button-contact-submit"
+                      >
+                        {sending
+                          ? <Loader2 size={14} className="animate-spin" />
+                          : <><Send size={13} /> Send message</>
+                        }
+                      </button>
+                    </form>
+                  </motion.div>
+                )}
+
+                {/* ── FAQ quick replies ── */}
+                {view === "faq" && (
+                  <motion.div key="faq"
+                    initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}
+                    className="flex flex-col gap-2"
+                  >
+                    <p className="text-xs text-muted-foreground mb-0.5">
+                      {answered ? "Ask another question" : "Common questions"}
+                    </p>
+                    <div className="flex flex-col gap-1.5 max-h-44 overflow-y-auto">
+                      {FAQS.map(faq => (
+                        <button
+                          key={faq.q}
+                          onClick={() => handleQuestion(faq)}
+                          className="text-left text-xs px-3 py-2 rounded-lg border border-border bg-muted/50 text-muted-foreground hover:border-primary/50 hover:text-foreground transition-all duration-150"
+                        >
+                          {faq.q}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Contact Rosalyn button */}
+                    <button
+                      onClick={() => setView("contact")}
+                      className="mt-1 w-full flex items-center justify-center gap-1.5 text-xs font-medium text-primary border border-primary/30 bg-primary/5 hover:bg-primary/10 py-2 rounded-lg transition-colors"
+                      data-testid="button-contact-rosalyn"
+                    >
+                      <Mail size={12} /> Contact Rosalyn
+                    </button>
+
+                    {messages.length > 1 && (
+                      <button
+                        onClick={handleReset}
+                        className="flex items-center justify-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
+                        data-testid="button-chat-reset"
+                      >
+                        <RotateCcw size={11} /> Start over
+                      </button>
+                    )}
+                  </motion.div>
+                )}
+
+              </AnimatePresence>
             </div>
           </motion.div>
         )}
