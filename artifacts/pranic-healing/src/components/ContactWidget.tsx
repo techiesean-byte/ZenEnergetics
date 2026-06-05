@@ -2,7 +2,6 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send, Loader2, CheckCircle2, ChevronDown, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -59,10 +58,8 @@ type Step = "closed" | "open" | "sending" | "done";
 
 export function ContactWidget() {
   const [step, setStep]     = useState<Step>("closed");
-  const [name, setName]     = useState("");
-  const [email, setEmail]   = useState("");
   const [message, setMessage] = useState("");
-  const [errors, setErrors] = useState<{ email?: string; message?: string }>({});
+  const [errors, setErrors] = useState<{ message?: string }>({});
   const [unread, setUnread] = useState(true);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const { t } = useLanguage();
@@ -90,7 +87,6 @@ export function ContactWidget() {
 
   function validate() {
     const e: typeof errors = {};
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = t.newsletter.email_placeholder;
     if (!message.trim()) e.message = t.contact.message_placeholder;
     setErrors(e);
     return Object.keys(e).length === 0;
@@ -108,7 +104,7 @@ export function ContactWidget() {
   }
 
   function handleReset() {
-    setName(""); setEmail(""); setMessage(""); setErrors({});
+    setMessage(""); setErrors({});
     setStep("open");
   }
 
@@ -201,12 +197,10 @@ export function ContactWidget() {
                       <CheckCircle2 size={24} className="text-primary" />
                     </div>
                     <p className="font-serif text-lg font-light text-foreground">
-                      {t.contact.success_title}{name ? `, ${name.split(" ")[0]}` : ""}.
+                      {t.contact.success_title}.
                     </p>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      {t.contact.success_body}{" "}
-                      <span className="text-foreground font-medium">{email}</span>{" "}
-                      {t.contact.success_body2}
+                      {t.contact.success_body}
                     </p>
                     {!online && (
                       <p className="text-xs text-muted-foreground bg-secondary/40 rounded-lg px-3 py-2">
@@ -248,24 +242,6 @@ export function ContactWidget() {
                         {online ? t.contact.form_label : "Leave a message"}
                       </p>
                       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-                        <Input
-                          placeholder={t.contact.name_placeholder}
-                          value={name}
-                          onChange={e => setName(e.target.value)}
-                          className="text-sm bg-background"
-                          data-testid="input-chat-name"
-                        />
-                        <div>
-                          <Input
-                            placeholder={t.contact.email_placeholder}
-                            type="email"
-                            value={email}
-                            onChange={e => { setEmail(e.target.value); setErrors(v => ({ ...v, email: undefined })); }}
-                            className={`text-sm bg-background ${errors.email ? "border-destructive" : ""}`}
-                            data-testid="input-chat-email"
-                          />
-                          {errors.email && <p className="text-xs text-destructive mt-1">{errors.email}</p>}
-                        </div>
                         <div>
                           <Textarea
                             ref={textareaRef}
