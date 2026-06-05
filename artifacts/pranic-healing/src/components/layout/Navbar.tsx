@@ -30,8 +30,9 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
       <div className="container mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="font-serif text-2xl font-medium tracking-wide text-primary flex-shrink-0" data-testid="link-home-logo">
-          Pranic Healing
+        <Link href="/" className="flex-shrink-0 flex flex-col leading-tight" data-testid="link-home-logo">
+          <span className="font-serif text-2xl font-medium tracking-wide text-primary">Pranic Healing</span>
+          <span className="text-xs font-medium tracking-widest text-muted-foreground uppercase">Zen Energetics</span>
         </Link>
 
         {/* Desktop Nav */}
