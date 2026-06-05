@@ -6,6 +6,7 @@ import { ArrowRight, Leaf, Sparkles, Heart, Star } from "lucide-react";
 import { NewsletterSignup } from "@/components/NewsletterSignup";
 import { AmbientPlayer } from "@/components/AmbientPlayer";
 import { DiscoveryPopup } from "@/components/DiscoveryPopup";
+import { AuraSlider } from "@/components/AuraSlider";
 
 import heroImg from "../assets/hero.png";
 import whatIs1Img from "../assets/what-is-1.png";
@@ -107,6 +108,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Before & After Aura Slider */}
+      <AuraSlider />
 
       {/* Pathways Section */}
       <section className="w-full py-24 bg-muted/60">
