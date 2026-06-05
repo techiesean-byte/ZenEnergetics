@@ -27,6 +27,11 @@ export function AmbientPlayer() {
   const [loadError, setLoadError] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  // Set soft default volume on mount
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.volume = 0.15;
+  }, []);
+
   // Show player after short delay
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 2000);
