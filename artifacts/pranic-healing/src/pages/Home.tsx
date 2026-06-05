@@ -7,6 +7,7 @@ import { NewsletterSignup } from "@/components/NewsletterSignup";
 import { AmbientPlayer } from "@/components/AmbientPlayer";
 import { DiscoveryPopup } from "@/components/DiscoveryPopup";
 import { AuraSlider } from "@/components/AuraSlider";
+import { ScrollBookCTA } from "@/components/ScrollBookCTA";
 
 import heroImg from "../assets/hero.png";
 import whatIs1Img from "../assets/what-is-1.png";
@@ -273,6 +274,9 @@ export default function Home() {
 
       {/* Discovery Call popup — appears after 30 seconds */}
       <DiscoveryPopup />
+
+      {/* Sticky Book CTA — slides up after scrolling past hero */}
+      <ScrollBookCTA />
     </div>
   );
 }
