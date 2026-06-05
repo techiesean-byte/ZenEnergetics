@@ -1,111 +1,125 @@
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send, Loader2, CheckCircle2, ChevronDown, Clock } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+import { MessageCircle, ChevronDown, Clock, X, RotateCcw } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-/* ── Presence logic ──────────────────────────────────────────────
-   Mon–Fri 09:00–18:00 in the healer's local timezone (America/Toronto).
-   Falls back to system time if Intl is unavailable.
-────────────────────────────────────────────────────────────────── */
-const TIMEZONE = "America/Toronto";
-const WORK_START = 9;   // 09:00
-const WORK_END   = 18;  // 18:00
-const WORK_DAYS  = [1, 2, 3, 4, 5]; // Mon–Fri
+/* ── Presence ────────────────────────────────────────────────── */
+const TIMEZONE  = "America/Toronto";
+const WORK_START = 9;
+const WORK_END   = 18;
+const WORK_DAYS  = [1, 2, 3, 4, 5];
 
 function getPresence(): { online: boolean; nextOnline: string } {
   try {
     const now   = new Date();
     const parts = new Intl.DateTimeFormat("en-CA", {
-      timeZone: TIMEZONE,
-      hour: "numeric",
-      minute: "numeric",
-      weekday: "short",
-      hour12: false,
+      timeZone: TIMEZONE, hour: "numeric", minute: "numeric",
+      weekday: "short", hour12: false,
     }).formatToParts(now);
 
     const hour    = parseInt(parts.find(p => p.type === "hour")!.value);
-    const minute  = parseInt(parts.find(p => p.type === "minute")!.value);
-    const weekday = parts.find(p => p.type === "weekday")!.value; // "Mon", "Tue" …
-    const dowMap: Record<string, number> = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+    const weekday = parts.find(p => p.type === "weekday")!.value;
+    const dowMap: Record<string, number> = { Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6 };
     const dow     = dowMap[weekday] ?? now.getDay();
 
-    const isWorkDay  = WORK_DAYS.includes(dow);
-    const isWorkHour = hour >= WORK_START && hour < WORK_END;
-    const online     = isWorkDay && isWorkHour;
-
-    // Build a human-readable "back at" string
+    const online = WORK_DAYS.includes(dow) && hour >= WORK_START && hour < WORK_END;
     let nextOnline = "Monday at 9:00 AM";
     if (!online) {
-      if (isWorkDay && hour < WORK_START) {
-        nextOnline = "today at 9:00 AM";
-      } else if (isWorkDay && hour >= WORK_END) {
-        const tomorrow = WORK_DAYS.includes((dow + 1) % 7) ? "tomorrow" : "Monday";
-        nextOnline = `${tomorrow} at 9:00 AM`;
-      }
-      // weekend: default "Monday" is fine
+      if (WORK_DAYS.includes(dow) && hour < WORK_START) nextOnline = "today at 9:00 AM";
+      else if (WORK_DAYS.includes(dow) && hour >= WORK_END)
+        nextOnline = `${WORK_DAYS.includes((dow+1)%7) ? "tomorrow" : "Monday"} at 9:00 AM`;
     }
-
     return { online, nextOnline };
   } catch {
-    // Fallback — treat as always online if Intl fails
     return { online: true, nextOnline: "soon" };
   }
 }
 
-type Step = "closed" | "open" | "sending" | "done";
+/* ── FAQ data ────────────────────────────────────────────────── */
+const FAQS = [
+  {
+    q: "What is pranic healing?",
+    a: "Pranic healing is a non-touch energy healing system that uses prana — or life force energy — to cleanse and revitalize the physical, emotional, and mental body. No physical contact is made during a session.",
+  },
+  {
+    q: "How do I book a session?",
+    a: "Click the 'Book Session' button at the top of the page to see available times and schedule your appointment directly.",
+  },
+  {
+    q: "How much does a session cost?",
+    a: "Pricing varies by session type and duration. Visit the Packages page for a full breakdown of what is included and current rates.",
+  },
+  {
+    q: "Do you offer remote sessions?",
+    a: "Yes! Remote pranic healing is just as effective as in-person work. Sessions are conducted at a scheduled time while you relax comfortably at home.",
+  },
+  {
+    q: "What happens during a session?",
+    a: "You remain fully clothed and simply relax. Rosalyn scans your energy field, removes congested or depleted energy, and replenishes your aura. Most clients feel deeply calm during and after.",
+  },
+  {
+    q: "How many sessions will I need?",
+    a: "This varies by person and condition. Some clients notice a significant shift after one session; others benefit from a short series. Rosalyn will advise you after your first visit.",
+  },
+  {
+    q: "Is pranic healing safe?",
+    a: "Pranic healing is completely safe and non-invasive. It is designed to complement — never replace — conventional medical care.",
+  },
+  {
+    q: "Where are you located?",
+    a: "Rosalyn is based in Paso Robles, CA and also works with clients worldwide via remote sessions.",
+  },
+];
+
+/* ── Types ───────────────────────────────────────────────────── */
+type PanelState = "closed" | "open";
+
+interface Message {
+  role: "bot" | "user";
+  text: string;
+}
+
+const GREETING = "Hi! I am here to answer your questions about pranic healing and working with Rosalyn. What would you like to know?";
 
 export function ContactWidget() {
-  const [step, setStep]     = useState<Step>("closed");
-  const [message, setMessage] = useState("");
-  const [errors, setErrors] = useState<{ message?: string }>({});
+  const [panel, setPanel]   = useState<PanelState>("closed");
   const [unread, setUnread] = useState(true);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [messages, setMessages] = useState<Message[]>([{ role: "bot", text: GREETING }]);
+  const [answered, setAnswered] = useState(false);
+  const bottomRef = useRef<HTMLDivElement>(null);
   const { t } = useLanguage();
 
-  // Recompute presence every minute so it updates live
   const [tick, setTick] = useState(0);
   useEffect(() => {
     const id = setInterval(() => setTick(n => n + 1), 60_000);
     return () => clearInterval(id);
   }, []);
-  const { online, nextOnline } = useMemo(() => getPresence(), [tick]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const QUICK_QUESTIONS = [
-    t.contact.quick_q1,
-    t.contact.quick_q2,
-    t.contact.quick_q3,
-    t.contact.quick_q4,
-  ];
+  const { online, nextOnline } = useMemo(() => getPresence(), [tick]); // eslint-disable-line
 
   useEffect(() => {
-    if (step === "open" && textareaRef.current && message) {
-      textareaRef.current.focus();
+    if (panel === "open") {
+      setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: "smooth" }), 80);
     }
-  }, [step, message]);
+  }, [messages, panel]);
 
-  function validate() {
-    const e: typeof errors = {};
-    if (!message.trim()) e.message = t.contact.message_placeholder;
-    setErrors(e);
-    return Object.keys(e).length === 0;
-  }
+  function handleOpen()  { setPanel("open"); setUnread(false); }
+  function handleClose() { setPanel("closed"); }
 
-  function handleOpen()  { setStep("open"); setUnread(false); }
-  function handleClose() { setStep("closed"); }
-  function handleQuick(q: string) { setMessage(q); setTimeout(() => textareaRef.current?.focus(), 50); }
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!validate()) return;
-    setStep("sending");
-    setTimeout(() => setStep("done"), 1400);
+  function handleQuestion(faq: typeof FAQS[0]) {
+    setMessages(prev => [
+      ...prev,
+      { role: "user", text: faq.q },
+    ]);
+    setAnswered(false);
+    setTimeout(() => {
+      setMessages(prev => [...prev, { role: "bot", text: faq.a }]);
+      setAnswered(true);
+    }, 600);
   }
 
   function handleReset() {
-    setMessage(""); setErrors({});
-    setStep("open");
+    setMessages([{ role: "bot", text: GREETING }]);
+    setAnswered(false);
   }
 
   return (
@@ -116,53 +130,48 @@ export function ContactWidget() {
       style={{ touchAction: "none" }}
       className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3"
     >
+      {/* ── Panel ── */}
       <AnimatePresence>
-        {(step === "open" || step === "sending" || step === "done") && (
+        {panel === "open" && (
           <motion.div
             key="panel"
             initial={{ opacity: 0, y: 16, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.95 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="w-80 rounded-2xl border border-border bg-card shadow-xl overflow-hidden"
+            className="w-80 rounded-2xl border border-border bg-card shadow-xl overflow-hidden flex flex-col"
+            style={{ maxHeight: "520px" }}
           >
-            {/* ── Panel header ── */}
-            <div className="bg-primary px-5 py-4 flex items-start justify-between">
+            {/* Header */}
+            <div className="bg-primary px-5 py-4 flex items-start justify-between flex-shrink-0">
               <div className="flex items-start gap-3">
-                {/* Avatar with presence dot */}
                 <div className="relative flex-shrink-0 mt-0.5">
                   <div className="w-9 h-9 rounded-full bg-primary-foreground/20 flex items-center justify-center font-serif text-primary-foreground text-sm font-medium">
                     R
                   </div>
-                  {/* Presence dot on avatar */}
                   <span className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-primary ${
                     online ? "bg-emerald-400" : "bg-muted-foreground/60"
                   }`} />
                 </div>
-
                 <div>
                   <p className="text-primary-foreground font-serif text-base font-light leading-tight">
                     {t.contact.panel_title}
                   </p>
-                  {/* Dynamic status line */}
                   <div className="flex items-center gap-1.5 mt-0.5">
                     {online ? (
                       <>
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
-                        <p className="text-primary-foreground/80 text-xs">Online now · usually replies in minutes</p>
+                        <p className="text-primary-foreground/80 text-xs">Online now</p>
                       </>
                     ) : (
                       <>
                         <Clock size={10} className="text-primary-foreground/60 flex-shrink-0" />
-                        <p className="text-primary-foreground/70 text-xs">
-                          Away · back {nextOnline}
-                        </p>
+                        <p className="text-primary-foreground/70 text-xs">Away · back {nextOnline}</p>
                       </>
                     )}
                   </div>
                 </div>
               </div>
-
               <button
                 onClick={handleClose}
                 className="text-primary-foreground/70 hover:text-primary-foreground transition-colors mt-0.5 flex-shrink-0"
@@ -173,103 +182,79 @@ export function ContactWidget() {
               </button>
             </div>
 
-            {/* Offline banner */}
-            {!online && step !== "done" && (
-              <div className="bg-amber-50 border-b border-amber-100 px-4 py-2.5 flex items-center gap-2">
-                <Clock size={12} className="text-amber-600 flex-shrink-0" />
-                <p className="text-xs text-amber-700 leading-snug">
-                  Rosalyn is away but will reply as soon as possible — leave your message below.
-                </p>
-              </div>
-            )}
-
-            {/* ── Panel body ── */}
-            <div className="p-5">
-              <AnimatePresence mode="wait">
-                {step === "done" ? (
+            {/* Chat thread */}
+            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 min-h-0">
+              <AnimatePresence initial={false}>
+                {messages.map((msg, i) => (
                   <motion.div
-                    key="done"
+                    key={i}
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex flex-col items-center text-center gap-3 py-4"
+                    transition={{ duration: 0.2 }}
+                    className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                   >
-                    <div className="w-12 h-12 rounded-full bg-primary/15 flex items-center justify-center">
-                      <CheckCircle2 size={24} className="text-primary" />
-                    </div>
-                    <p className="font-serif text-lg font-light text-foreground">
-                      {t.contact.success_title}.
-                    </p>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {t.contact.success_body}
-                    </p>
-                    {!online && (
-                      <p className="text-xs text-muted-foreground bg-secondary/40 rounded-lg px-3 py-2">
-                        Rosalyn is currently away and will reply when she returns {nextOnline}.
-                      </p>
+                    {msg.role === "bot" && (
+                      <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center font-serif text-primary text-xs font-medium flex-shrink-0 mr-2 mt-0.5">
+                        R
+                      </div>
                     )}
-                    <button
-                      onClick={handleReset}
-                      className="mt-2 text-xs text-primary hover:underline"
-                      data-testid="button-chat-send-another"
+                    <div
+                      className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm leading-relaxed ${
+                        msg.role === "bot"
+                          ? "bg-secondary/60 text-foreground rounded-tl-sm"
+                          : "bg-primary text-primary-foreground rounded-tr-sm"
+                      }`}
                     >
-                      {t.contact.send_another}
-                    </button>
-                  </motion.div>
-                ) : (
-                  <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                    <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">
-                      {t.contact.quick_label}
-                    </p>
-                    <div className="flex flex-col gap-1.5 mb-4">
-                      {QUICK_QUESTIONS.map(q => (
-                        <button
-                          key={q}
-                          onClick={() => handleQuick(q)}
-                          data-testid={`button-quick-question-${q.slice(0, 20).toLowerCase().replace(/\s+/g, "-")}`}
-                          className={`text-left text-xs px-3 py-2 rounded-lg border transition-all duration-150 ${
-                            message === q
-                              ? "border-primary bg-primary/10 text-primary"
-                              : "border-border bg-muted/50 text-muted-foreground hover:border-primary/50 hover:text-foreground"
-                          }`}
-                        >
-                          {q}
-                        </button>
-                      ))}
-                    </div>
-
-                    <div className="border-t border-border pt-4">
-                      <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">
-                        {online ? t.contact.form_label : "Leave a message"}
-                      </p>
-                      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-                        <div>
-                          <Textarea
-                            ref={textareaRef}
-                            placeholder={t.contact.message_placeholder}
-                            value={message}
-                            onChange={e => { setMessage(e.target.value); setErrors(v => ({ ...v, message: undefined })); }}
-                            rows={3}
-                            className={`text-sm bg-background resize-none ${errors.message ? "border-destructive" : ""}`}
-                            data-testid="input-chat-message"
-                          />
-                          {errors.message && <p className="text-xs text-destructive mt-1">{errors.message}</p>}
-                        </div>
-                        <Button
-                          type="submit"
-                          disabled={step === "sending"}
-                          className="bg-primary text-primary-foreground hover:bg-primary/90 w-full"
-                          data-testid="button-chat-submit"
-                        >
-                          {step === "sending"
-                            ? <Loader2 size={15} className="animate-spin" />
-                            : <><Send size={14} className="mr-2" />{online ? t.contact.send : "Leave message"}</>
-                          }
-                        </Button>
-                      </form>
+                      {msg.text}
                     </div>
                   </motion.div>
-                )}
+                ))}
               </AnimatePresence>
+              <div ref={bottomRef} />
+            </div>
+
+            {/* Quick replies / reset */}
+            <div className="flex-shrink-0 border-t border-border px-4 py-3 bg-background/60">
+              {answered ? (
+                <div className="flex flex-col gap-2">
+                  <p className="text-xs text-muted-foreground text-center">Ask another question</p>
+                  <div className="grid grid-cols-1 gap-1.5 max-h-40 overflow-y-auto">
+                    {FAQS.map(faq => (
+                      <button
+                        key={faq.q}
+                        onClick={() => handleQuestion(faq)}
+                        className="text-left text-xs px-3 py-2 rounded-lg border border-border bg-muted/50 text-muted-foreground hover:border-primary/50 hover:text-foreground transition-all duration-150"
+                      >
+                        {faq.q}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-1.5">
+                  <p className="text-xs text-muted-foreground mb-1">Common questions</p>
+                  {FAQS.map(faq => (
+                    <button
+                      key={faq.q}
+                      onClick={() => handleQuestion(faq)}
+                      className="text-left text-xs px-3 py-2 rounded-lg border border-border bg-muted/50 text-muted-foreground hover:border-primary/50 hover:text-foreground transition-all duration-150"
+                    >
+                      {faq.q}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {messages.length > 1 && (
+                <button
+                  onClick={handleReset}
+                  className="mt-3 flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors mx-auto"
+                  data-testid="button-chat-reset"
+                >
+                  <RotateCcw size={11} />
+                  Start over
+                </button>
+              )}
             </div>
           </motion.div>
         )}
@@ -277,13 +262,11 @@ export function ContactWidget() {
 
       {/* ── Trigger button ── */}
       <div className="relative">
-        {/* Pulsing ring — online only, closed state */}
-        {online && step === "closed" && (
+        {online && panel === "closed" && (
           <span className="absolute inset-0 rounded-full animate-ping bg-emerald-400/30 pointer-events-none" />
         )}
-
         <motion.button
-          onClick={step === "closed" ? handleOpen : handleClose}
+          onClick={panel === "closed" ? handleOpen : handleClose}
           data-testid="button-chat-toggle"
           aria-label={t.contact.panel_title}
           whileHover={{ scale: 1.05 }}
@@ -291,7 +274,7 @@ export function ContactWidget() {
           className="relative w-7 h-7 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center"
         >
           <AnimatePresence mode="wait">
-            {step !== "closed" ? (
+            {panel !== "closed" ? (
               <motion.div key="close"
                 initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }}
                 exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.18 }}>
@@ -306,9 +289,8 @@ export function ContactWidget() {
             )}
           </AnimatePresence>
 
-          {/* Unread badge */}
           <AnimatePresence>
-            {unread && step === "closed" && (
+            {unread && panel === "closed" && (
               <motion.span
                 key="dot"
                 initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
@@ -317,9 +299,8 @@ export function ContactWidget() {
             )}
           </AnimatePresence>
 
-          {/* Presence dot on button */}
           <AnimatePresence>
-            {step === "closed" && (
+            {panel === "closed" && (
               <motion.span
                 key="presence"
                 initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
@@ -330,7 +311,6 @@ export function ContactWidget() {
             )}
           </AnimatePresence>
         </motion.button>
-
       </div>
     </motion.div>
   );
