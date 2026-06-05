@@ -1,3 +1,12 @@
+import heroImg from "../assets/hero.png";
+import whatIs1Img from "../assets/what-is-1.png";
+import whatIs2Img from "../assets/what-is-2.png";
+import gallery1Img from "../assets/gallery-1.png";
+import videoThumb1Img from "../assets/video-thumb-1.png";
+import videoThumb2Img from "../assets/video-thumb-2.png";
+import videoThumb3Img from "../assets/video-thumb-3.png";
+import videoThumb4Img from "../assets/video-thumb-4.png";
+
 export interface Article {
   slug: string;
   title: string;
@@ -24,7 +33,7 @@ export const articles: Article[] = [
     category: "Foundations",
     readTime: "6 min read",
     publishedDate: "May 12, 2025",
-    heroImage: "../assets/hero.png",
+    heroImage: heroImg,
     excerpt: "Prana is the Sanskrit word for life force — the invisible, vital energy that breathes through every living being. Ancient healing traditions across cultures have recognized this energy by different names: chi in Chinese medicine, ki in Japanese practice, and mana in Polynesian tradition.",
     body: [
       { type: "paragraph", content: "Prana is the Sanskrit word for life force — the invisible, vital energy that breathes through every living being. Ancient healing traditions across cultures have recognized this energy by different names: chi in Chinese medicine, ki in Japanese practice, and mana in Polynesian tradition. What they all describe is the same fundamental truth: life is not merely physical." },
@@ -54,7 +63,7 @@ export const articles: Article[] = [
     category: "How It Works",
     readTime: "8 min read",
     publishedDate: "April 28, 2025",
-    heroImage: "../assets/what-is-1.png",
+    heroImage: whatIs1Img,
     excerpt: "Many people come to pranic healing with a mix of curiosity and healthy skepticism. What does a healer actually do? How can working with an invisible energy field produce real results? This article walks you through a typical session so you can know exactly what to expect.",
     body: [
       { type: "paragraph", content: "Many people come to pranic healing with a mix of curiosity and healthy skepticism. What does a healer actually do? How can working with an invisible energy field produce real results? This article walks you through a typical session so you can know exactly what to expect." },
@@ -82,7 +91,7 @@ export const articles: Article[] = [
     category: "Energy Anatomy",
     readTime: "9 min read",
     publishedDate: "April 10, 2025",
-    heroImage: "../assets/what-is-2.png",
+    heroImage: whatIs2Img,
     excerpt: "Most people have heard of the seven chakras from yoga traditions. Pranic healing works with eleven major chakras, offering a more detailed map of the body's energy anatomy. Understanding these centers can help you recognize patterns in your own health and emotional life.",
     body: [
       { type: "paragraph", content: "Most people have heard of the seven chakras from yoga traditions. Pranic healing works with eleven major chakras, offering a more detailed map of the body's energy anatomy. Understanding these centers can help you recognize patterns in your own health and emotional life." },
@@ -123,7 +132,7 @@ export const articles: Article[] = [
     category: "Conditions",
     readTime: "7 min read",
     publishedDate: "March 22, 2025",
-    heroImage: "../assets/gallery-1.png",
+    heroImage: gallery1Img,
     excerpt: "We are living through an epidemic of anxiety. Globally, hundreds of millions of people struggle with chronic stress and anxiety disorders, and the tools of conventional medicine — though often helpful — leave many people still searching for relief. Pranic healing offers a complementary approach that addresses anxiety at its energetic root.",
     body: [
       { type: "paragraph", content: "We are living through an epidemic of anxiety. Globally, hundreds of millions of people struggle with chronic stress and anxiety disorders, and the tools of conventional medicine — though often helpful — leave many people still searching for relief. Pranic healing offers a complementary approach that addresses anxiety at its energetic root." },
@@ -153,7 +162,7 @@ export const articles: Article[] = [
     category: "How It Works",
     readTime: "6 min read",
     publishedDate: "March 5, 2025",
-    heroImage: "../assets/video-thumb-1.png",
+    heroImage: videoThumb1Img,
     excerpt: "Of all the aspects of pranic healing, distance or remote healing is the one that most challenges conventional assumptions about how the world works. How can a healer help someone they cannot see or touch, sometimes from thousands of miles away? The answer lies in understanding the true nature of the energy body.",
     body: [
       { type: "paragraph", content: "Of all the aspects of pranic healing, distance or remote healing is the one that most challenges conventional assumptions about how the world works. How can a healer help someone they cannot see or touch, sometimes from thousands of miles away? The answer lies in understanding the true nature of the energy body." },
@@ -182,7 +191,7 @@ export const articles: Article[] = [
     category: "Special Topics",
     readTime: "5 min read",
     publishedDate: "February 18, 2025",
-    heroImage: "../assets/video-thumb-2.png",
+    heroImage: videoThumb2Img,
     excerpt: "Children are energetically sensitive and highly receptive. Their energy bodies are bright and responsive, which means they tend to benefit from pranic healing quickly and noticeably. Many parents who have experienced healing themselves begin wondering how this gentle modality might support their children's health and emotional wellbeing.",
     body: [
       { type: "paragraph", content: "Children are energetically sensitive and highly receptive. Their energy bodies are bright and responsive, which means they tend to benefit from pranic healing quickly and noticeably. Many parents who have experienced healing themselves begin wondering how this gentle modality might support their children's health and emotional wellbeing." },
@@ -213,7 +222,7 @@ export const articles: Article[] = [
     category: "Self-Care",
     readTime: "7 min read",
     publishedDate: "February 2, 2025",
-    heroImage: "../assets/video-thumb-3.png",
+    heroImage: videoThumb3Img,
     excerpt: "Pranic healing sessions provide powerful restoration, but what happens in between sessions matters enormously. Just as a car needs regular fuel, your energy body needs consistent daily care. The good news is that effective energy hygiene does not require special training — just intention and a few simple habits.",
     body: [
       { type: "paragraph", content: "Pranic healing sessions provide powerful restoration, but what happens in between sessions matters enormously. Just as a car needs regular fuel, your energy body needs consistent daily care. The good news is that effective energy hygiene does not require special training — just intention and a few simple habits." },
@@ -241,7 +250,7 @@ export const articles: Article[] = [
     category: "Foundations",
     readTime: "5 min read",
     publishedDate: "January 20, 2025",
-    heroImage: "../assets/video-thumb-4.png",
+    heroImage: videoThumb4Img,
     excerpt: "One of the most important things to understand about pranic healing is that it is designed to work alongside conventional medicine, not in opposition to it. Grand Master Choa Kok Sui himself was emphatic on this point: responsible healers never advise clients to discontinue medical treatment or medications.",
     body: [
       { type: "paragraph", content: "One of the most important things to understand about pranic healing is that it is designed to work alongside conventional medicine, not in opposition to it. Grand Master Choa Kok Sui himself was emphatic on this point: responsible healers never advise clients to discontinue medical treatment or medications." },
