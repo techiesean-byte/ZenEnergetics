@@ -30,7 +30,7 @@ export default function Blog() {
   return (
     <div className="min-h-screen bg-background">
       {/* Page Header */}
-      <section className="py-20 bg-gradient-to-b from-secondary/40 to-background">
+      <section className="py-20 bg-gradient-to-b from-secondary/60 to-secondary/10">
         <motion.div
           className="container mx-auto px-4 md:px-6 text-center"
           initial="hidden"

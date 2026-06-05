@@ -1,6 +1,5 @@
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
-import { MusicPlayer } from "../MusicPlayer";
 import { ContactWidget } from "../ContactWidget";
 import { ReactNode } from "react";
 
@@ -16,7 +15,6 @@ export function Layout({ children }: LayoutProps) {
         {children}
       </main>
       <Footer />
-      <MusicPlayer />
       <ContactWidget />
     </div>
   );

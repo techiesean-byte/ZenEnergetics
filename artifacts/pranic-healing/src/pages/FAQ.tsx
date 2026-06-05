@@ -64,9 +64,11 @@ export default function FAQ() {
   return (
     <div className="flex flex-col items-center w-full bg-background pb-24">
       {/* Header */}
-      <section className="w-full bg-muted/30 py-20 pt-32 border-b">
+      <section className="w-full py-20 pt-32 border-b bg-gradient-to-b from-secondary/50 to-secondary/10">
         <div className="container mx-auto px-4 md:px-6 text-center max-w-3xl">
-          <HelpCircle className="w-12 h-12 mx-auto text-primary mb-6 opacity-80" />
+          <div className="w-14 h-14 rounded-full bg-secondary mx-auto flex items-center justify-center mb-6">
+            <HelpCircle className="w-7 h-7 text-primary" />
+          </div>
           <motion.h1 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -113,7 +115,7 @@ export default function FAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mt-16 bg-primary/5 rounded-3xl p-8 md:p-12 text-center"
+          className="mt-16 bg-secondary/30 border border-secondary/50 rounded-3xl p-8 md:p-12 text-center"
         >
           <h3 className="font-serif text-2xl md:text-3xl font-medium text-foreground mb-4">Still have questions?</h3>
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">

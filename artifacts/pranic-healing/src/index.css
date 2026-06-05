@@ -320,14 +320,15 @@
   }
 }
 
-/* Subtle lavender page gradation */
+/* Rich lavender-purple page gradation */
 html {
   background: linear-gradient(
     180deg,
-    hsl(268 35% 95%) 0%,
-    hsl(268 28% 97%) 30%,
-    hsl(265 20% 98%) 70%,
-    hsl(260 18% 98%) 100%
+    hsl(270 45% 92%) 0%,
+    hsl(268 38% 94%) 20%,
+    hsl(268 30% 96%) 50%,
+    hsl(265 25% 97%) 80%,
+    hsl(262 20% 97%) 100%
   );
   background-attachment: fixed;
 }

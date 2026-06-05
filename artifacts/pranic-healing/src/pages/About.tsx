@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Award, BookOpen, Heart, Leaf, Star, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import healerImg from "../assets/healer-portrait.png";
+import healerImg from "../assets/healer-photo.jpeg";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24 },
@@ -121,7 +121,7 @@ export default function About() {
       </section>
 
       {/* Philosophy */}
-      <section className="py-16 bg-secondary/20">
+      <section className="py-16 bg-gradient-to-b from-secondary/40 to-secondary/10">
         <div className="container mx-auto px-4 md:px-6 max-w-4xl">
           <motion.div
             initial="hidden"
@@ -171,7 +171,7 @@ export default function About() {
       </section>
 
       {/* Credentials */}
-      <section className="py-16 bg-muted/40">
+      <section className="py-16 bg-secondary/25">
         <div className="container mx-auto px-4 md:px-6">
           <motion.div
             initial="hidden"
@@ -246,7 +246,7 @@ export default function About() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 bg-gradient-to-b from-secondary/20 to-accent/10">
+      <section className="py-20 bg-gradient-to-b from-secondary/40 to-secondary/10">
         <motion.div
           className="container mx-auto px-4 md:px-6 text-center max-w-2xl"
           initial={{ opacity: 0, y: 24 }}
