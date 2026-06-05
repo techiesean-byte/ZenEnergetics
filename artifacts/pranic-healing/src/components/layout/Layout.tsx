@@ -1,6 +1,7 @@
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { ContactWidget } from "../ContactWidget";
+import { RatingBadge } from "../RatingBadge";
 import { ReactNode } from "react";
 
 interface LayoutProps {
@@ -16,6 +17,7 @@ export function Layout({ children }: LayoutProps) {
       </main>
       <Footer />
       <ContactWidget />
+      <RatingBadge />
     </div>
   );
 }
