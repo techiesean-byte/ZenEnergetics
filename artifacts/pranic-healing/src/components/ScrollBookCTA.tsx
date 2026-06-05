@@ -38,9 +38,9 @@ export function ScrollBookCTA() {
             <motion.button
               whileHover={{ scale: 1.04, boxShadow: "0 8px 30px rgba(109,40,217,0.25)" }}
               whileTap={{ scale: 0.97 }}
-              className="pointer-events-auto flex items-center gap-2.5 bg-primary text-primary-foreground font-medium text-sm px-6 py-3 rounded-full shadow-lg"
+              className="pointer-events-auto flex items-center gap-1.5 bg-primary text-primary-foreground font-medium text-xs px-3 py-1.5 rounded-full shadow-lg"
             >
-              <CalendarDays size={16} className="flex-shrink-0" />
+              <CalendarDays size={12} className="flex-shrink-0" />
               Book a Session
             </motion.button>
           </Link>
