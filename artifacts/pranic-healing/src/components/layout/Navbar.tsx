@@ -22,6 +22,7 @@ export function Navbar() {
     { href: "/gallery", label: t.nav.gallery },
     { href: "/testimonials", label: t.nav.testimonials },
     { href: "/faq", label: t.nav.faq },
+    { href: "/packages", label: t.nav.packages },
     { href: "/blog", label: t.nav.articles },
     { href: "/about", label: t.nav.about },
   ];
