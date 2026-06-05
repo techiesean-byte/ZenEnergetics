@@ -29,7 +29,7 @@ export function AmbientPlayer() {
 
   // Set soft default volume on mount
   useEffect(() => {
-    if (audioRef.current) audioRef.current.volume = 0.15;
+    if (audioRef.current) audioRef.current.volume = 0.25;
   }, []);
 
   // Show player after short delay

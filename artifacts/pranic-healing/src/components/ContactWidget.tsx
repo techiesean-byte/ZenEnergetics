@@ -113,7 +113,13 @@ export function ContactWidget() {
   }
 
   return (
-    <div className="fixed bottom-6 left-6 z-50 flex flex-col items-start gap-3">
+    <motion.div
+      drag
+      dragMomentum={false}
+      dragElastic={0}
+      style={{ touchAction: "none" }}
+      className="fixed bottom-6 left-6 z-50 flex flex-col items-start gap-3"
+    >
       <AnimatePresence>
         {(step === "open" || step === "sending" || step === "done") && (
           <motion.div
@@ -349,27 +355,7 @@ export function ContactWidget() {
           </AnimatePresence>
         </motion.button>
 
-        {/* "Rosalyn is online" / "Leave a message" label beside button — closed state only */}
-        <AnimatePresence>
-          {step === "closed" && (
-            <motion.div
-              initial={{ opacity: 0, x: -8 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -8 }}
-              transition={{ duration: 0.25, delay: 0.5 }}
-              className="absolute left-16 bottom-3 whitespace-nowrap pointer-events-none"
-            >
-              <div className={`text-xs font-medium px-2.5 py-1 rounded-full shadow-sm border ${
-                online
-                  ? "bg-emerald-50 text-emerald-700 border-emerald-200"
-                  : "bg-muted text-muted-foreground border-border"
-              }`}>
-                {online ? "Rosalyn is online" : "Leave a message"}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
-    </div>
+    </motion.div>
   );
 }
