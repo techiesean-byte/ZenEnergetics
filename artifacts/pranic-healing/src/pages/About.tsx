@@ -94,17 +94,17 @@ export default function About() {
               Your Practitioner
             </motion.p>
             <motion.h1 variants={fadeInUp} className="font-serif text-5xl md:text-6xl font-light text-foreground leading-tight">
-              Sophia Marlowe
+              Rosalyn Piza
             </motion.h1>
             <motion.p variants={fadeInUp} className="text-muted-foreground text-base font-medium tracking-wide">
-              Certified Pranic Healer · Psychotherapy Practitioner · Twin Hearts Facilitator
+              Pranic Healer · Non-Dualism
             </motion.p>
             <Separator />
             <motion.p variants={fadeInUp} className="text-foreground/80 text-lg leading-relaxed">
-              I came to pranic healing not through spiritual seeking, but through exhaustion. After years of pushing through a high-pressure career, my body simply stopped cooperating. A single session — arranged almost as a last resort — changed the trajectory of my life.
+              Through years of exploring various healing and spiritual modalities, Rosalyn discovered Pranic Healing and non-dualism. These practices have become the foundation of her personal and professional life.
             </motion.p>
             <motion.p variants={fadeInUp} className="text-foreground/75 leading-relaxed">
-              That was sixteen years ago. Since then I have worked with more than 1,500 clients — from burned-out executives to grieving parents, from children with anxiety to cancer patients seeking support alongside their medical treatment. Each one has taught me something the training never could.
+              Based in Paso Robles, Central California, Rosalyn works full-time as a Water Utility Engineer for the City. On weekends and special events, she also works at DENO Winery — weaving her passion for healing into every corner of her life.
             </motion.p>
             <motion.div variants={fadeInUp} className="flex flex-wrap gap-3 pt-2">
               <Link href="/book" data-testid="link-about-cta-book">
@@ -164,9 +164,9 @@ export default function About() {
           className="pl-0 border-l-0"
         >
           <p className="font-serif text-2xl md:text-3xl font-light italic text-foreground/70 leading-relaxed">
-            "I do not see clients as broken things to be fixed. I see them as complete human beings whose energy has become temporarily clouded. My work is simply to help clear the view."
+            "I'm looking forward to offering Pranic Healing sessions to help others find relaxation, energetic balance, and explore a deeper connection with one self's inner landscape — just as these practices have transformed my own life."
           </p>
-          <footer className="mt-5 text-sm text-muted-foreground font-medium tracking-wide">— Sophia Marlowe</footer>
+          <footer className="mt-5 text-sm text-muted-foreground font-medium tracking-wide">— Rosalyn Piza</footer>
         </motion.blockquote>
       </section>
 

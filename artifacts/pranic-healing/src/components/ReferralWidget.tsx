@@ -30,11 +30,11 @@ export function ReferralWidget({ senderName }: Props) {
   }
 
   const whatsappText = encodeURIComponent(
-    `${firstName} thought you might love this — Pranic Healing with Sophia Laurent. Use my link for 25% off your first session: ${link}`
+    `${firstName} thought you might love this — Pranic Healing with Rosalyn Piza. Use my link for 25% off your first session: ${link}`
   );
   const emailSubject = encodeURIComponent("A gift for you — 25% off your first Pranic Healing session");
   const emailBody    = encodeURIComponent(
-    `Hi,\n\nI recently booked a Pranic Healing session with Sophia Laurent and wanted to share it with you.\n\nUse my personal link below and you'll receive 25% off your first session:\n\n${link}\n\nHope to see you there!\n${firstName}`
+    `Hi,\n\nI recently booked a Pranic Healing session with Rosalyn Piza and wanted to share it with you.\n\nUse my personal link below and you'll receive 25% off your first session:\n\n${link}\n\nHope to see you there!\n${firstName}`
   );
 
   return (

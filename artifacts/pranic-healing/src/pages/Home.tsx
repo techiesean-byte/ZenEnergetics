@@ -198,7 +198,7 @@ export default function Home() {
               <div className="rounded-2xl overflow-hidden shadow-2xl ring-4 ring-secondary/40">
                 <img
                   src={healerPhoto}
-                  alt="Sophia Marlowe — Pranic Healer"
+                  alt="Rosalyn Piza — Pranic Healer"
                   className="w-full h-[480px] object-cover object-top"
                   data-testid="img-healer-home"
                 />
@@ -228,16 +228,16 @@ export default function Home() {
             >
               <p className="text-xs font-medium tracking-widest uppercase text-primary">Your Practitioner</p>
               <h2 className="font-serif text-4xl md:text-5xl font-light text-foreground leading-tight">
-                Sophia Marlowe
+                Rosalyn Piza
               </h2>
               <p className="text-sm text-muted-foreground font-medium tracking-wide">
-                Certified Pranic Healer · Psychotherapy Practitioner · Twin Hearts Facilitator
+                Pranic Healer · Non-Dualism
               </p>
               <p className="text-foreground/80 leading-relaxed text-lg">
-                I came to pranic healing not through spiritual seeking, but through exhaustion. A single session, arranged almost as a last resort, changed the trajectory of my life — and has since guided over 1,500 others toward their own.
+                Through years of exploring various healing and spiritual modalities, Rosalyn discovered Pranic Healing and non-dualism. These practices have become the foundation of her personal and professional life.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                With more than 12 years in practice and clients spanning 18 countries, I bring certified expertise and deep compassion to every session — whether in-person or at a distance.
+                Based in Paso Robles, Central California, Rosalyn works full-time as a Water Utility Engineer for the City. On weekends and special events, she also works at DENO Winery — bringing the same care and presence to every role she holds.
               </p>
               <div className="flex flex-wrap gap-3 pt-2">
                 <Link href="/about" data-testid="link-home-about">

@@ -67,7 +67,7 @@ export function DiscoveryPopup() {
                     You're on your way.
                   </p>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    We'll see you on the booking page. Sophia will reach out within 24 hours to confirm your free call.
+                    We'll see you on the booking page. Rosalyn will reach out within 24 hours to confirm your free call.
                   </p>
                 </motion.div>
               ) : (

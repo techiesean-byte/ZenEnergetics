@@ -71,7 +71,7 @@ export default function Book() {
               Request Received
             </h1>
             <p className="text-muted-foreground text-lg font-light max-w-md mx-auto">
-              Sophia will review your intake and send a confirmation to your inbox within 24 hours.
+              Rosalyn will review your intake and send a confirmation to your inbox within 24 hours.
             </p>
           </motion.div>
         </section>
@@ -111,7 +111,7 @@ export default function Book() {
             <div className="px-6 pt-5 pb-4 border-b border-border/60 space-y-1 bg-muted/20">
               <div className="flex items-baseline gap-3 text-sm">
                 <span className="text-muted-foreground w-14 flex-shrink-0 text-xs uppercase tracking-wide">From</span>
-                <span className="font-medium text-foreground">Pranic Healing — Sophia Laurent</span>
+                <span className="font-medium text-foreground">Pranic Healing — Rosalyn Piza</span>
                 <span className="text-muted-foreground text-xs ml-auto flex-shrink-0">&lt;harmony@pranichealing.co&gt;</span>
               </div>
               <div className="flex items-baseline gap-3 text-sm">
@@ -126,7 +126,7 @@ export default function Book() {
               {/* Brand header strip */}
               <div className="bg-gradient-to-r from-[#6b4fbb] to-[#9b7de0] px-8 py-8 text-white text-center">
                 <p className="font-serif text-2xl font-light tracking-wide mb-0.5">Pranic Healing</p>
-                <p className="text-white/70 text-xs tracking-widest uppercase">with Sophia Laurent</p>
+                <p className="text-white/70 text-xs tracking-widest uppercase">with Rosalyn Piza</p>
               </div>
 
               {/* Body content */}
@@ -215,8 +215,8 @@ export default function Book() {
 
                 <p className="text-gray-900">
                   With light and gratitude,<br />
-                  <strong>Sophia Laurent</strong><br />
-                  <span className="text-gray-500 text-sm">Certified Pranic Healer</span>
+                  <strong>Rosalyn Piza</strong><br />
+                  <span className="text-gray-500 text-sm">Pranic Healer · Non-Dualism</span>
                 </p>
               </div>
 
@@ -225,7 +225,7 @@ export default function Book() {
                 <div className="flex items-center justify-center gap-6 text-xs text-gray-500">
                   <span className="flex items-center gap-1.5"><Phone size={11} /> (555) 867-5309</span>
                   <span className="flex items-center gap-1.5"><Mail size={11} /> harmony@pranichealing.co</span>
-                  <span className="flex items-center gap-1.5"><MapPin size={11} /> Montreal, QC</span>
+                  <span className="flex items-center gap-1.5"><MapPin size={11} /> Paso Robles, CA</span>
                 </div>
                 <p className="text-[10px] text-gray-400">
                   You received this because you submitted a session request on pranichealing.co.<br />
@@ -248,7 +248,7 @@ export default function Book() {
             className="text-center mt-8"
           >
             <p className="text-sm text-muted-foreground mb-4">
-              A real confirmation will land in your inbox once Sophia reviews your request.
+              A real confirmation will land in your inbox once Rosalyn reviews your request.
             </p>
             <Button variant="outline" onClick={() => window.location.href = "/"}>
               Return Home

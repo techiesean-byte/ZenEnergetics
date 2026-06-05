@@ -130,7 +130,7 @@ export function ContactWidget() {
                 {/* Avatar with presence dot */}
                 <div className="relative flex-shrink-0 mt-0.5">
                   <div className="w-9 h-9 rounded-full bg-primary-foreground/20 flex items-center justify-center font-serif text-primary-foreground text-sm font-medium">
-                    S
+                    R
                   </div>
                   {/* Presence dot on avatar */}
                   <span className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-primary ${
@@ -176,7 +176,7 @@ export function ContactWidget() {
               <div className="bg-amber-50 border-b border-amber-100 px-4 py-2.5 flex items-center gap-2">
                 <Clock size={12} className="text-amber-600 flex-shrink-0" />
                 <p className="text-xs text-amber-700 leading-snug">
-                  Sophia is away but will reply as soon as possible — leave your message below.
+                  Rosalyn is away but will reply as soon as possible — leave your message below.
                 </p>
               </div>
             )}
@@ -204,7 +204,7 @@ export function ContactWidget() {
                     </p>
                     {!online && (
                       <p className="text-xs text-muted-foreground bg-secondary/40 rounded-lg px-3 py-2">
-                        Sophia is currently away and will reply when she returns {nextOnline}.
+                        Rosalyn is currently away and will reply when she returns {nextOnline}.
                       </p>
                     )}
                     <button
@@ -349,7 +349,7 @@ export function ContactWidget() {
           </AnimatePresence>
         </motion.button>
 
-        {/* "Sophia is online" / "Leave a message" label beside button — closed state only */}
+        {/* "Rosalyn is online" / "Leave a message" label beside button — closed state only */}
         <AnimatePresence>
           {step === "closed" && (
             <motion.div
@@ -364,7 +364,7 @@ export function ContactWidget() {
                   ? "bg-emerald-50 text-emerald-700 border-emerald-200"
                   : "bg-muted text-muted-foreground border-border"
               }`}>
-                {online ? "Sophia is online" : "Leave a message"}
+                {online ? "Rosalyn is online" : "Leave a message"}
               </div>
             </motion.div>
           )}

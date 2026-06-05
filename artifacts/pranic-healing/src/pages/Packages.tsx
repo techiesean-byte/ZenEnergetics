@@ -176,7 +176,7 @@ export default function Packages() {
                 title: "Not sure which to choose?",
                 items: [
                   "Book a single session first to experience the work",
-                  "Or contact Sophia directly — she will recommend the right fit for your needs",
+                  "Or contact Rosalyn directly — she will recommend the right fit for your needs",
                 ],
               },
             ].map(({ icon, title, items }) => (
@@ -199,7 +199,7 @@ export default function Packages() {
           className="mt-10 text-center"
         >
           <p className="text-muted-foreground text-sm mb-4">
-            Have questions before choosing? Sophia is happy to help you pick the right path.
+            Have questions before choosing? Rosalyn is happy to help you pick the right path.
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
             <a href="tel:+15558675309"

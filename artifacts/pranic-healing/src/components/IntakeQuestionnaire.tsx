@@ -142,7 +142,7 @@ export function IntakeQuestionnaire({ onComplete }: Props) {
           A few questions to prepare your session
         </h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          Your answers help Sophia understand your needs before you arrive, so every minute of your session is focused on you.
+          Your answers help Rosalyn understand your needs before you arrive, so every minute of your session is focused on you.
           Questions 1–5 are required; question 6 is optional.
         </p>
       </div>
@@ -221,7 +221,7 @@ export function IntakeQuestionnaire({ onComplete }: Props) {
           <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-muted text-muted-foreground text-[10px] font-semibold mr-2 flex-shrink-0 align-middle">
             6
           </span>
-          Is there anything else you'd like Sophia to know?
+          Is there anything else you'd like Rosalyn to know?
           <span className="ml-2 text-xs font-normal text-muted-foreground">(optional)</span>
         </Label>
         <p className="text-xs text-muted-foreground pl-7">
