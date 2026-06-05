@@ -199,7 +199,7 @@ export default function Home() {
                 <img
                   src={healerPhoto}
                   alt="Rosalyn Piza — Pranic Healer"
-                  className="w-full h-[480px] object-cover object-top"
+                  className="w-full h-[480px] object-cover object-right-top"
                   data-testid="img-healer-home"
                 />
               </div>
@@ -211,10 +211,8 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.4, duration: 0.4 }}
               >
-                <div className="flex items-center gap-1 mb-1">
-                  {[1,2,3,4,5].map(s => <Star key={s} size={11} className="text-primary fill-primary" />)}
-                </div>
-                <p className="text-xs text-muted-foreground">1,500+ clients · 18 countries</p>
+                <p className="font-serif text-base font-light text-primary leading-none">Pranic Healing</p>
+                <p className="text-xs text-muted-foreground mt-0.5">Non-Dualism · Paso Robles, CA</p>
               </motion.div>
             </motion.div>
 

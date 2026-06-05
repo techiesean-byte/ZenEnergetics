@@ -16,41 +16,40 @@ const stagger = {
 };
 
 const credentials = [
-  { icon: Award, label: "Certified Pranic Healer", detail: "Institute for Inner Studies — Level I, II & III" },
-  { icon: Star, label: "Advanced Pranic Healing", detail: "Certified in color prana & advanced chakra work" },
-  { icon: Heart, label: "Pranic Psychotherapy", detail: "Certified practitioner for emotional & trauma healing" },
-  { icon: BookOpen, label: "Twin Hearts Meditation", detail: "Certified facilitator — group & individual sessions" },
-  { icon: Leaf, label: "Pranic Crystal Healing", detail: "Certified in the use of crystals as energetic tools" },
-  { icon: Award, label: "Over 12 Years in Practice", detail: "1,500+ individual clients across 18 countries" },
+  { icon: Award, label: "Certified Pranic Healer", detail: "Institute for Inner Studies — Pranic Healing practitioner" },
+  { icon: Leaf, label: "Non-Dualism", detail: "Deep study of non-dual philosophy as a path to inner clarity" },
+  { icon: Heart, label: "Energy & Spiritual Modalities", detail: "Years of personal exploration across multiple healing traditions" },
+  { icon: BookOpen, label: "Twin Hearts Meditation", detail: "Facilitator of this heart-centred meditation practice" },
+  { icon: Star, label: "Pranic Crystal Healing", detail: "Working with crystals as energetic tools in session" },
+  { icon: Award, label: "Continuing Education", detail: "Ongoing deepening of practice alongside professional life" },
 ];
 
 const values = [
   {
-    title: "Every person is inherently whole.",
-    body: "I do not heal anyone. What I do is create the conditions — the energetic space — in which your body remembers how to heal itself. That distinction matters deeply to me.",
+    title: "Relaxation is a gateway.",
+    body: "Before anything else, I want you to feel safe enough to let go. Relaxation is not a side effect of the session — it is the entry point. From that place, deeper work becomes possible.",
   },
   {
-    title: "Healing is not one-size-fits-all.",
-    body: "Each session is tailored to what you bring into the room that day. No two clients are alike, and no two sessions are the same. I listen before I act.",
+    title: "Energetic balance shapes everything.",
+    body: "The way we feel, think, and move through the world is inseparable from our energetic state. When that balance is restored, things that felt heavy begin to lighten on their own.",
   },
   {
-    title: "This work complements, never replaces, medicine.",
-    body: "I hold enormous respect for conventional healthcare. My role is to work alongside your doctors and therapists, not in opposition to them.",
+    title: "Non-dualism informs everything I do.",
+    body: "My study of non-dual philosophy has taught me that separation is the root of most suffering. In our sessions I hold that understanding — that you are already whole, not something to be fixed.",
   },
   {
-    title: "Your pace is the right pace.",
-    body: "Some people feel dramatic shifts in one session. Others need months of gentle, consistent work. Both paths are equally valid. I will never pressure you toward a particular timeline.",
+    title: "Life outside the healing room matters.",
+    body: "I am an engineer by profession and spend my weekends at a winery. I understand what it means to hold many roles at once. Healing does not ask you to change your life — it asks you to show up in it more fully.",
   },
 ];
 
 const timeline = [
-  { year: "2008", event: "First encounter with pranic healing during a period of burnout — a session changed everything." },
-  { year: "2010", event: "Completed Level I and Level II certifications with the Institute for Inner Studies." },
-  { year: "2012", event: "Opened a small private practice while completing Advanced and Psychotherapy certifications." },
-  { year: "2015", event: "Began offering distance healing sessions, extending reach to clients across continents." },
-  { year: "2018", event: "Became a certified Twin Hearts Meditation facilitator, adding group healing work." },
-  { year: "2021", event: "Expanded to a full online platform, serving clients in 18 countries." },
-  { year: "Today", event: "Continuing to practice, teach, and deepen — because a healer who stops learning stops healing." },
+  { year: "Early on", event: "Began exploring various healing and spiritual modalities — driven by personal curiosity and a desire to understand energy and inner experience." },
+  { year: "Discovery", event: "Encountered Pranic Healing and immediately recognised its grounded, systematic approach to working with the body's energy field." },
+  { year: "Deepening", event: "Pursued formal Pranic Healing certification and began a parallel study of non-dualism, finding the two paths deeply complementary." },
+  { year: "Integration", event: "Continued building practice alongside a full-time career as a Water Utility Engineer for the City of Paso Robles, Central California." },
+  { year: "Community", event: "Began offering sessions on weekends and special events, including at DENO Winery — bringing healing into everyday spaces." },
+  { year: "Today", event: "Offering Pranic Healing sessions to help others find relaxation, energetic balance, and a deeper connection with their inner landscape." },
 ];
 
 export default function About() {
@@ -71,7 +70,7 @@ export default function About() {
               <img
                 src={healerImg}
                 alt="Pranic healer portrait"
-                className="w-full h-[520px] object-cover object-top"
+                className="w-full h-[520px] object-cover object-right-top"
                 data-testid="img-healer-portrait"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent" />
@@ -83,8 +82,8 @@ export default function About() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.5, duration: 0.4 }}
             >
-              <p className="font-serif text-2xl font-light text-primary leading-none">12+</p>
-              <p className="text-xs text-muted-foreground mt-0.5">Years of practice</p>
+              <p className="font-serif text-lg font-light text-primary leading-none">Paso Robles</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Central California</p>
             </motion.div>
           </motion.div>
 
