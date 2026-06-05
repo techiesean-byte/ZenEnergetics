@@ -154,7 +154,7 @@ const en = {
     tagline:   "A comprehensive pranic healing resource that guides you from curiosity to transformation. Discover the power of subtle energy to heal physical, emotional, and mental ailments.",
     explore:   "Explore",
     support:   "Support",
-    copyright: "Pranic Healing Sanctuary. All rights reserved.",
+    copyright: "Zen Energetics. All rights reserved.",
     quote:     '"Healing is a matter of time, but it is sometimes also a matter of opportunity."',
   },
   common: {
@@ -308,7 +308,7 @@ const fr: Translations = {
     tagline:   "Une ressource complète de guérison pranique qui vous guide de la curiosité à la transformation.",
     explore:   "Explorer",
     support:   "Soutien",
-    copyright: "Sanctuaire de Guérison Pranique. Tous droits réservés.",
+    copyright: "Zen Energetics. Tous droits réservés.",
     quote:     "« La guérison est une question de temps, mais parfois aussi une question d'opportunité. »",
   },
   common: {
@@ -462,7 +462,7 @@ const es: Translations = {
     tagline:   "Un recurso completo de sanación pránica que te guía de la curiosidad a la transformación.",
     explore:   "Explorar",
     support:   "Soporte",
-    copyright: "Santuario de Sanación Pránica. Todos los derechos reservados.",
+    copyright: "Zen Energetics. Todos los derechos reservados.",
     quote:     '"La sanación es cuestión de tiempo, pero a veces también de oportunidad."',
   },
   common: {
@@ -616,7 +616,7 @@ const pt: Translations = {
     tagline:   "Um recurso completo de cura prânica que guia você da curiosidade à transformação.",
     explore:   "Explorar",
     support:   "Suporte",
-    copyright: "Santuário de Cura Prânica. Todos os direitos reservados.",
+    copyright: "Zen Energetics. Todos os direitos reservados.",
     quote:     '"A cura é uma questão de tempo, mas às vezes também é uma questão de oportunidade."',
   },
   common: {
