@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "sanity dev --port 3333",
+    "dev": "sanity dev --port 3001 --host 0.0.0.0",
+    "serve": "serve dist --listen 3000 --single --no-clipboard",
     "build": "sanity build",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy"
@@ -13,6 +14,9 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "sanity": "^3.65.0",
-    "styled-components": "^6.1.8"
+    "styled-components": "^6.4.2"
+  },
+  "devDependencies": {
+    "serve": "^14.2.6"
   }
 }

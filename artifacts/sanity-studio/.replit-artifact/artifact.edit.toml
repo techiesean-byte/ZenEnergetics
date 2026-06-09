@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/studio"
+title = "Content Studio"
+version = "1.0.0"
+id = "artifacts/sanity-studio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/studio" ]
+localPort = 3000
+
+[services.development]
+run = "pnpm --filter @workspace/sanity-studio run serve"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/sanity-studio", "run", "build" ]
+publicDir = "artifacts/sanity-studio/dist"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "3000"
+BASE_PATH = "/studio"

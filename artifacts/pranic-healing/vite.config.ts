@@ -66,6 +66,17 @@ export default defineConfig({
     fs: {
       strict: true,
     },
+    proxy: {
+      '/studio': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/studio/, '') || '/',
+      },
+      '/static': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+    },
   },
   preview: {
     port,

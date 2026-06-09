@@ -8,6 +8,7 @@ export default defineConfig({
   title: 'Zen Energetics',
   projectId: '9op646qf',
   dataset: 'production',
+  basePath: '/studio',
   plugins: [structureTool(), visionTool()],
   schema: {
     types: schemaTypes,
