@@ -23,6 +23,10 @@ publicDir = "artifacts/pranic-healing/dist/public"
 serve = "static"
 
 [[services.production.rewrites]]
+from = "/studio"
+to = "/studio/index.html"
+
+[[services.production.rewrites]]
 from = "/studio/*"
 to = "/studio/index.html"
 
