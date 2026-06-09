@@ -1,7 +1,9 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { CheckCircle2, Sparkles, Star, Zap, ArrowRight, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { fetchPackages } from "@/lib/sanity";
 
 /* ── Package data ─────────────────────────────────────────────── */
 interface Package {
@@ -20,7 +22,7 @@ interface Package {
   highlighted: boolean;
 }
 
-const PACKAGES: Package[] = [
+const FALLBACK_PACKAGES: Package[] = [
   {
     id: "single",
     name: "Single Session",
@@ -109,8 +111,34 @@ const PACKAGES: Package[] = [
   },
 ];
 
+function mapSanityToPackage(p: ReturnType<typeof Object.create>): Package {
+  return {
+    id: p.packageId || p._id,
+    name: p.name,
+    tagline: p.tagline,
+    sessions: p.sessions,
+    duration: p.duration,
+    priceNote: p.price || "Pricing coming soon",
+    savingsNote: p.savingsNote,
+    bestFor: p.bestFor,
+    includes: p.includes || [],
+    highlighted: p.highlighted || false,
+    badge: p.badge,
+    badgeColor: p.badgeColor,
+    cta: `Book ${p.name}`,
+  };
+}
+
 /* ── Component ───────────────────────────────────────────────── */
 export default function Packages() {
+  const [packages, setPackages] = useState<Package[]>(FALLBACK_PACKAGES);
+
+  useEffect(() => {
+    fetchPackages().then((data) => {
+      if (data.length > 0) setPackages(data.map(mapSanityToPackage));
+    });
+  }, []);
+
   return (
     <div className="flex flex-col items-center w-full bg-background pb-24">
 
@@ -144,7 +172,7 @@ export default function Packages() {
       {/* Package grid */}
       <div className="container mx-auto px-4 md:px-6 py-16 max-w-6xl w-full">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 items-start">
-          {PACKAGES.map((pkg, i) => (
+          {packages.map((pkg, i) => (
             <PackageCard key={pkg.id} pkg={pkg} index={i} />
           ))}
         </div>

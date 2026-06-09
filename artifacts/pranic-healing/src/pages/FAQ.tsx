@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import {
@@ -8,8 +9,9 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, HelpCircle } from "lucide-react";
+import { fetchFaqs } from "@/lib/sanity";
 
-const faqs = [
+const FALLBACK_FAQS = [
   {
     question: "What exactly is prana?",
     answer: "Prana is the Sanskrit word for 'life force'. It is the invisible energy that keeps the body alive and healthy. In other traditions, it is known as Chi (Chinese), Ki (Japanese), or Mana (Polynesian). We absorb prana primarily from the air, the sun, and the ground."
@@ -61,6 +63,14 @@ const faqs = [
 ];
 
 export default function FAQ() {
+  const [faqs, setFaqs] = useState(FALLBACK_FAQS);
+
+  useEffect(() => {
+    fetchFaqs().then((data) => {
+      if (data.length > 0) setFaqs(data);
+    });
+  }, []);
+
   return (
     <div className="flex flex-col items-center w-full bg-background pb-24">
       {/* Header */}

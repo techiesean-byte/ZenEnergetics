@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Award, BookOpen, Heart, Leaf, Star, ArrowRight } from "lucide-react";
@@ -52,7 +53,25 @@ const timeline = [
   { year: "Today", event: "Offering Pranic Healing sessions to help others find relaxation, energetic balance, and a deeper connection with their inner landscape." },
 ];
 
+const FALLBACK_BIO1 = "Through years of exploring various healing and spiritual modalities, Rosalyn discovered Pranic Healing and non-dualism. These practices have become the foundation of her personal and professional life.";
+const FALLBACK_BIO2 = "Based in Paso Robles, Central California, Rosalyn works full-time as a Water Utility Engineer for the City. On weekends and special events, she also works at DENO Winery — weaving her passion for healing into every corner of her life.";
+const FALLBACK_QUOTE = "I'm looking forward to offering Pranic Healing sessions to help others find relaxation, energetic balance, and explore a deeper connection with one self's inner landscape — just as these practices have transformed my own life.";
+
 export default function About() {
+  const [bio1, setBio1] = useState(FALLBACK_BIO1);
+  const [bio2, setBio2] = useState(FALLBACK_BIO2);
+  const [quote, setQuote] = useState(FALLBACK_QUOTE);
+
+  useEffect(() => {
+    import("@/lib/sanity").then(({ fetchAboutBio }) => {
+      fetchAboutBio().then((data) => {
+        if (data?.bio1) setBio1(data.bio1);
+        if (data?.bio2) setBio2(data.bio2);
+        if (data?.quote) setQuote(data.quote);
+      });
+    });
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
 
@@ -100,10 +119,10 @@ export default function About() {
             </motion.p>
             <Separator />
             <motion.p variants={fadeInUp} className="text-foreground/80 text-lg leading-relaxed">
-              Through years of exploring various healing and spiritual modalities, Rosalyn discovered Pranic Healing and non-dualism. These practices have become the foundation of her personal and professional life.
+              {bio1}
             </motion.p>
             <motion.p variants={fadeInUp} className="text-foreground/75 leading-relaxed">
-              Based in Paso Robles, Central California, Rosalyn works full-time as a Water Utility Engineer for the City. On weekends and special events, she also works at DENO Winery — weaving her passion for healing into every corner of her life.
+              {bio2}
             </motion.p>
             <motion.div variants={fadeInUp} className="flex flex-wrap gap-3 pt-2">
               <Link href="/book" data-testid="link-about-cta-book">
@@ -163,7 +182,7 @@ export default function About() {
           className="pl-0 border-l-0"
         >
           <p className="font-serif text-2xl md:text-3xl font-light italic text-foreground/70 leading-relaxed">
-            "I'm looking forward to offering Pranic Healing sessions to help others find relaxation, energetic balance, and explore a deeper connection with one self's inner landscape — just as these practices have transformed my own life."
+            "{quote}"
           </p>
           <footer className="mt-5 text-sm text-muted-foreground font-medium tracking-wide">— Rosalyn Piza</footer>
         </motion.blockquote>
