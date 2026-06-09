@@ -5,4 +5,5 @@ export default defineCliConfig({
     projectId: '9op646qf',
     dataset: 'production',
   },
+  studioHost: 'zen-energetics',
 })
