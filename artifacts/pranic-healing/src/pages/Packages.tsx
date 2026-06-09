@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { CheckCircle2, Sparkles, Star, Zap, ArrowRight, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { fetchPackages } from "@/lib/sanity";
+import { fetchPackages, fetchSiteSettings } from "@/lib/sanity";
 
 /* ── Package data ─────────────────────────────────────────────── */
 interface Package {
@@ -132,10 +132,16 @@ function mapSanityToPackage(p: ReturnType<typeof Object.create>): Package {
 /* ── Component ───────────────────────────────────────────────── */
 export default function Packages() {
   const [packages, setPackages] = useState<Package[]>(FALLBACK_PACKAGES);
+  const [contactPhone, setContactPhone] = useState("(805) 555-0123");
+  const [contactEmail, setContactEmail] = useState("rosalyn@zenenergetics.com");
 
   useEffect(() => {
     fetchPackages().then((data) => {
       if (data.length > 0) setPackages(data.map(mapSanityToPackage));
+    });
+    fetchSiteSettings().then((s) => {
+      if (s?.contactPhone) setContactPhone(s.contactPhone);
+      if (s?.contactEmail) setContactEmail(s.contactEmail);
     });
   }, []);
 
@@ -230,14 +236,14 @@ export default function Packages() {
             Have questions before choosing? Rosalyn is happy to help you pick the right path.
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
-            <a href="tel:+15558675309"
+            <a href={`tel:${contactPhone.replace(/\D/g, "")}`}
               className="text-sm font-medium text-foreground hover:text-primary transition-colors">
-              (555) 867-5309
+              {contactPhone}
             </a>
             <span className="text-border">·</span>
-            <a href="mailto:harmony@pranichealing.co"
+            <a href={`mailto:${contactEmail}`}
               className="text-sm font-medium text-foreground hover:text-primary transition-colors">
-              harmony@pranichealing.co
+              {contactEmail}
             </a>
           </div>
         </motion.div>
