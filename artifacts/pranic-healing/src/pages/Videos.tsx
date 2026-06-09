@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, Pause, X, Loader2 } from "lucide-react";
+import { Play, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import thumb1 from "../assets/video-thumb-1.png";
@@ -15,65 +15,57 @@ const videos = [
     id: 1,
     title: "Introduction to Prana",
     description: "Learn the fundamentals of life energy and how it affects your daily well-being.",
-    guide: "Female Guide",
+    guide: "Pranic Healing",
     thumbnail: thumb1,
-    duration: "1:24"
+    youtubeId: "GqrqF3QZsB8",
   },
   {
     id: 2,
     title: "Cleansing Your Aura",
     description: "A guided explanation on how energetic blockages form and how they are swept away.",
-    guide: "Male Guide",
+    guide: "Pranic Healing",
     thumbnail: thumb2,
-    duration: "1:45"
+    youtubeId: "vpv5MopbM4s",
   },
   {
     id: 3,
     title: "Activating the Chakras",
     description: "Understand the major energy centers in your body and their physical counterparts.",
-    guide: "Female Guide",
+    guide: "Pranic Healing",
     thumbnail: thumb3,
-    duration: "2:10"
+    youtubeId: "RVPdNOhcv-4",
   },
   {
     id: 4,
     title: "Distance Healing Explained",
     description: "How energy knows no bounds and distance healing works just as effectively.",
-    guide: "Male Guide",
+    guide: "Pranic Healing",
     thumbnail: thumb4,
-    duration: "1:55"
+    youtubeId: "QUXCMnVnnvs",
   },
   {
     id: 5,
     title: "Daily Energy Hygiene Practice",
     description: "Simple techniques to keep your energy field clean amidst daily stress.",
-    guide: "Female Guide",
+    guide: "Pranic Healing",
     thumbnail: thumb5,
-    duration: "2:30"
+    youtubeId: "qh4kCX9SsDA",
   },
   {
     id: 6,
     title: "Meditation for Energy Restoration",
     description: "A brief overview of the Meditation on Twin Hearts for deep inner peace.",
-    guide: "Male Guide",
+    guide: "Pranic Healing",
     thumbnail: thumb6,
-    duration: "1:40"
+    youtubeId: "Rptib8FmrxM",
   }
 ];
 
 export default function Videos() {
   const [activeVideo, setActiveVideo] = useState<number | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
 
-  const openVideo = (id: number) => {
-    setActiveVideo(id);
-    setIsPlaying(true);
-  };
-
-  const closeVideo = () => {
-    setActiveVideo(null);
-    setIsPlaying(false);
-  };
+  const openVideo = (id: number) => setActiveVideo(id);
+  const closeVideo = () => setActiveVideo(null);
 
   return (
     <div className="flex flex-col items-center w-full bg-background pb-24">
@@ -145,97 +137,58 @@ export default function Videos() {
 
       {/* Video Modal */}
       <AnimatePresence>
-        {activeVideo !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/95 backdrop-blur-lg"
-          >
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="absolute top-6 right-6 text-foreground hover:bg-muted rounded-full"
+        {activeVideo !== null && (() => {
+          const video = videos.find(v => v.id === activeVideo)!;
+          return (
+            <motion.div
+              key="modal"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
               onClick={closeVideo}
-              data-testid="button-close-video"
             >
-              <X className="w-6 h-6" />
-            </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute top-4 right-4 text-white hover:bg-white/10 rounded-full z-10"
+                onClick={closeVideo}
+                data-testid="button-close-video"
+              >
+                <X className="w-6 h-6" />
+              </Button>
 
-            <motion.div 
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              className="w-full max-w-4xl bg-card rounded-3xl overflow-hidden shadow-2xl border"
-            >
-              <div className="relative aspect-video bg-black flex items-center justify-center overflow-hidden group">
-                <img 
-                  src={videos.find(v => v.id === activeVideo)?.thumbnail} 
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${isPlaying ? 'opacity-30' : 'opacity-60'}`}
-                  alt=""
-                />
-                
-                {/* Simulated playing state */}
-                {isPlaying ? (
-                  <div className="relative z-10 flex flex-col items-center text-white space-y-8">
-                    <div className="relative w-32 h-32 flex items-center justify-center">
-                      <motion.div
-                        animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
-                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                        className="absolute inset-0 rounded-full border-2 border-primary/50"
-                      />
-                      <motion.div
-                        animate={{ scale: [1, 1.2, 1], opacity: [0.8, 0.2, 0.8] }}
-                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                        className="absolute inset-4 rounded-full border border-primary/50"
-                      />
-                      <div className="w-16 h-16 rounded-full bg-primary/20 backdrop-blur-sm border border-primary/50 flex items-center justify-center cursor-pointer" onClick={() => setIsPlaying(false)}>
-                        <Pause className="w-6 h-6 text-white" />
-                      </div>
-                    </div>
-                    <p className="text-sm font-medium uppercase tracking-widest text-white/70 animate-pulse">
-                      Playing Audio...
-                    </p>
-                  </div>
-                ) : (
-                  <div className="relative z-10 w-20 h-20 rounded-full bg-primary/90 text-primary-foreground flex items-center justify-center cursor-pointer hover:bg-primary transition-colors shadow-lg shadow-primary/20" onClick={() => setIsPlaying(true)}>
-                    <Play className="w-8 h-8 ml-1" />
-                  </div>
-                )}
-
-                {/* Fake Controls */}
-                <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-                  <div className="flex items-center gap-4">
-                    <button onClick={() => setIsPlaying(!isPlaying)} className="text-white hover:text-primary transition-colors">
-                      {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
-                    </button>
-                    <div className="flex-1 h-1.5 bg-white/20 rounded-full overflow-hidden">
-                      <motion.div 
-                        className="h-full bg-primary" 
-                        initial={{ width: "0%" }}
-                        animate={isPlaying ? { width: "100%" } : { width: "0%" }}
-                        transition={isPlaying ? { duration: 120, ease: "linear" } : { duration: 0 }}
-                      />
-                    </div>
-                    <span className="text-xs text-white font-medium">0:00 / {videos.find(v => v.id === activeVideo)?.duration}</span>
-                  </div>
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                className="w-full max-w-4xl bg-card rounded-3xl overflow-hidden shadow-2xl border"
+                onClick={e => e.stopPropagation()}
+              >
+                <div className="relative aspect-video bg-black">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&rel=0`}
+                    title={video.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full"
+                  />
                 </div>
-              </div>
-
-              <div className="p-6 md:p-8 bg-card">
-                <span className="text-sm font-medium text-primary uppercase tracking-wider mb-2 block">
-                  {videos.find(v => v.id === activeVideo)?.guide}
-                </span>
-                <h2 className="font-serif text-2xl md:text-3xl font-medium mb-3">
-                  {videos.find(v => v.id === activeVideo)?.title}
-                </h2>
-                <p className="text-muted-foreground text-lg">
-                  {videos.find(v => v.id === activeVideo)?.description}
-                </p>
-              </div>
+                <div className="p-6 md:p-8 bg-card">
+                  <span className="text-sm font-medium text-primary uppercase tracking-wider mb-2 block">
+                    {video.guide}
+                  </span>
+                  <h2 className="font-serif text-2xl md:text-3xl font-medium mb-3">
+                    {video.title}
+                  </h2>
+                  <p className="text-muted-foreground text-lg">
+                    {video.description}
+                  </p>
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
+          );
+        })()}
       </AnimatePresence>
     </div>
   );
