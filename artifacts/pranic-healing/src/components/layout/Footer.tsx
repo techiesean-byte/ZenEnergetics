@@ -7,7 +7,7 @@ export function Footer() {
   const { t } = useLanguage();
 
   return (
-    <footer className="bg-muted mt-auto border-t">
+    <footer className="mt-auto border-t" style={{ background: "linear-gradient(180deg, hsl(270 38% 88%) 0%, hsl(268 32% 86%) 100%)" }}>
       {/* Newsletter strip */}
       <div className="border-b border-border/60 py-10">
         <div className="container mx-auto px-4 md:px-6">

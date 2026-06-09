@@ -77,15 +77,15 @@
   --elevate-1: rgba(0,0,0, .03);
   --elevate-2: rgba(0,0,0, .08);
 
-  --background: 268 28% 97%;
+  --background: 268 38% 95%;
   --foreground: 272 22% 20%;
-  --border: 270 18% 87%;
-  --card: 265 20% 99%;
+  --border: 270 25% 84%;
+  --card: 265 28% 98%;
   --card-foreground: 272 22% 20%;
-  --card-border: 270 18% 87%;
-  --sidebar: 268 28% 97%;
+  --card-border: 270 25% 84%;
+  --sidebar: 268 38% 95%;
   --sidebar-foreground: 272 22% 20%;
-  --sidebar-border: 270 18% 87%;
+  --sidebar-border: 270 25% 84%;
   --sidebar-primary: 38 72% 50%;
   --sidebar-primary-foreground: 0 0% 100%;
   --sidebar-accent: 150 25% 85%;
@@ -96,10 +96,10 @@
   --popover-border: 270 18% 87%;
   --primary: 38 72% 50%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 272 30% 91%;
+  --secondary: 272 45% 86%;
   --secondary-foreground: 272 22% 28%;
-  --muted: 268 22% 93%;
-  --muted-foreground: 272 16% 48%;
+  --muted: 268 35% 90%;
+  --muted-foreground: 272 20% 46%;
   --accent: 150 25% 85%;
   --accent-foreground: 150 30% 25%;
   --destructive: 0 84% 60%;
@@ -324,11 +324,12 @@
 html {
   background: linear-gradient(
     180deg,
-    hsl(270 45% 92%) 0%,
-    hsl(268 38% 94%) 20%,
-    hsl(268 30% 96%) 50%,
-    hsl(265 25% 97%) 80%,
-    hsl(262 20% 97%) 100%
+    hsl(270 60% 88%) 0%,
+    hsl(270 50% 90%) 15%,
+    hsl(268 44% 92%) 35%,
+    hsl(268 38% 94%) 60%,
+    hsl(265 32% 95%) 80%,
+    hsl(262 28% 96%) 100%
   );
   background-attachment: fixed;
 }
