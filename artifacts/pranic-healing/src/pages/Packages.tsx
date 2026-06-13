@@ -238,6 +238,28 @@ export default function Packages() {
           </div>
         )}
 
+        {/* Pay online banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-emerald-200 bg-emerald-50 px-6 py-5"
+        >
+          <div>
+            <p className="font-medium text-emerald-900 text-sm">Ready to pay for your sessions?</p>
+            <p className="text-xs text-emerald-700 mt-0.5">
+              Secure online payment powered by QuickBooks — no account needed.
+            </p>
+          </div>
+          <a
+            href="https://connect.intuit.com/portal/app/CommerceNetwork/view/scs-v1-991b376a01f64641bfb01b70d4860be0eb84e60157ed4d9dbb9de1d6274d0da62fbc5f9b892c41478415149026867475?locale=EN_US&cta=paylinkbuybutton"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors whitespace-nowrap shadow-sm"
+          >
+            Pay Now
+          </a>
+        </motion.div>
+
         {/* Comparison note */}
         <motion.div
           initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}

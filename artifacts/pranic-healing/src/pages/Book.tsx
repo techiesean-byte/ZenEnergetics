@@ -223,6 +223,20 @@ export default function Book() {
                     <p className="text-xs text-muted-foreground text-center">
                       You will receive a confirmation email from Calendly once your booking is complete.
                     </p>
+
+                    <hr className="border-secondary/40" />
+                    <div className="text-center space-y-2">
+                      <p className="text-xs font-medium text-foreground">Pay for your sessions online</p>
+                      <p className="text-xs text-muted-foreground">Secure payment via QuickBooks — no account needed.</p>
+                      <a
+                        href="https://connect.intuit.com/portal/app/CommerceNetwork/view/scs-v1-991b376a01f64641bfb01b70d4860be0eb84e60157ed4d9dbb9de1d6274d0da62fbc5f9b892c41478415149026867475?locale=EN_US&cta=paylinkbuybutton"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 w-full bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shadow-sm"
+                      >
+                        Pay Now
+                      </a>
+                    </div>
                   </div>
                 </div>
 
