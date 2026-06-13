@@ -27,6 +27,7 @@ export interface SanityPackage {
   sessions: number
   duration: string
   price?: string
+  perSession?: string
   savingsNote?: string
   bestFor: string
   includes: string[]
@@ -104,7 +105,7 @@ export async function fetchPackages(): Promise<SanityPackage[]> {
     return (await query<SanityPackage[]>(
       `*[_type == "servicePackage"] | order(order asc) {
         _id, packageId, name, tagline, sessions, duration,
-        price, savingsNote, bestFor, includes,
+        price, perSession, savingsNote, bestFor, includes,
         highlighted, badge, badgeColor, order
       }`
     )) ?? []

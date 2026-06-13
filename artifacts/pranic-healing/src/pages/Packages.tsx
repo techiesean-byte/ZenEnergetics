@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { CheckCircle2, Sparkles, Star, Zap, ArrowRight, Tag } from "lucide-react";
+import { CheckCircle2, Sparkles, Star, Zap, ArrowRight, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { fetchPackages, fetchSiteSettings } from "@/lib/sanity";
 
@@ -14,7 +14,8 @@ interface Package {
   tagline: string;
   sessions: number;
   duration: string;
-  priceNote: string;
+  price: string;
+  perSession: string;
   savingsNote?: string;
   bestFor: string;
   includes: string[];
@@ -26,11 +27,12 @@ const FALLBACK_PACKAGES: Package[] = [
   {
     id: "single",
     name: "Single Session",
-    tagline: "Your first step into pranic healing",
+    tagline: "Experience pranic healing for the first time",
     sessions: 1,
-    duration: "60 min",
-    priceNote: "Pricing coming soon",
-    bestFor: "First-time clients who want to experience pranic healing before committing to a programme.",
+    duration: "1 hour",
+    price: "$90",
+    perSession: "$90 per session",
+    bestFor: "First-time clients who want to experience pranic healing before committing to a package.",
     includes: [
       "Full 60-minute individual healing session",
       "Aura scanning at the start and close",
@@ -41,16 +43,17 @@ const FALLBACK_PACKAGES: Package[] = [
     highlighted: false,
   },
   {
-    id: "starter",
+    id: "bundle-3",
     badge: "Most Popular",
     badgeColor: "primary",
-    name: "Starter Pack",
-    tagline: "Three sessions — begin the shift",
+    name: "3 Session Bundle",
+    tagline: "Begin the shift — three sessions deep",
     sessions: 3,
-    duration: "3 × 60 min",
-    priceNote: "Pricing coming soon",
-    savingsNote: "Save vs. individual sessions",
-    bestFor: "Clients dealing with a specific issue — physical pain, stress, grief — who want to see meaningful, lasting results.",
+    duration: "3 × 1 hour",
+    price: "$240",
+    perSession: "$80 per session",
+    savingsNote: "Save $30 vs. single sessions",
+    bestFor: "Clients dealing with a specific issue — physical pain, stress, or grief — who want meaningful, lasting results.",
     includes: [
       "Three individual 60-minute sessions",
       "Full aura scan at each visit",
@@ -59,54 +62,75 @@ const FALLBACK_PACKAGES: Package[] = [
       "Priority scheduling for all three bookings",
       "Written progress notes emailed to you",
     ],
-    cta: "Book the Starter Pack",
+    cta: "Book 3 Sessions",
     highlighted: true,
   },
   {
-    id: "journey",
+    id: "bundle-5",
     badge: "Best Value",
     badgeColor: "amber",
-    name: "Deep Healing Journey",
-    tagline: "Six sessions — sustained transformation",
-    sessions: 6,
-    duration: "6 × 60 min",
-    priceNote: "Pricing coming soon",
-    savingsNote: "Greatest saving per session",
-    bestFor: "Clients committed to deep, sustained healing — chronic conditions, long-term stress patterns, or full energetic renewal.",
+    name: "5 Session Bundle",
+    tagline: "Sustained healing over five sessions",
+    sessions: 5,
+    duration: "5 × 1 hour",
+    price: "$375",
+    perSession: "$75 per session",
+    savingsNote: "Save $75 vs. single sessions",
+    bestFor: "Clients ready to commit to a deeper healing arc — ideal for chronic conditions and long-term stress patterns.",
     includes: [
-      "Six individual 60-minute sessions",
-      "One 30-minute Aura Scanning & Analysis",
-      "One 90-minute Chakra Balancing Intensive",
-      "Personalised healing protocol across all sessions",
-      "Priority scheduling and early access to new slots",
-      "Detailed progress report after session 3 and 6",
-      "Direct WhatsApp support between sessions",
-      "Meditation and self-care resource library",
+      "Five individual 60-minute sessions",
+      "Full aura scan at each visit",
+      "Personalised healing protocol",
+      "Post-session guidance after every session",
+      "Priority scheduling for all five bookings",
+      "Detailed progress notes throughout",
     ],
-    cta: "Book the Deep Healing Journey",
+    cta: "Book 5 Sessions",
     highlighted: false,
   },
   {
-    id: "transformation",
-    name: "Complete Transformation",
-    tagline: "Ten sessions — a full energetic reset",
+    id: "bundle-10",
+    name: "10 Session Bundle",
+    tagline: "Deep transformation over ten sessions",
     sessions: 10,
-    duration: "10 × 60 min",
-    priceNote: "Pricing coming soon",
-    savingsNote: "Maximum saving — best per-session rate",
-    bestFor: "Clients seeking a complete energetic overhaul — long-standing physical ailments, deep emotional release, or profound spiritual growth.",
+    duration: "10 × 1 hour",
+    price: "$700",
+    perSession: "$70 per session",
+    savingsNote: "Save $200 vs. single sessions",
+    bestFor: "Clients committed to significant energetic renewal — chronic ailments, deep emotional release, or full system reset.",
     includes: [
       "Ten individual 60-minute sessions",
-      "Two 30-minute Aura Scanning & Analysis sessions",
-      "Two 90-minute Chakra Balancing Intensives",
+      "Full aura scan at each visit",
+      "Bespoke healing roadmap",
+      "Post-session guidance after every session",
+      "Highest-priority scheduling",
+      "Detailed progress report at sessions 3, 6, and 10",
+      "Direct WhatsApp support between sessions",
+    ],
+    cta: "Book 10 Sessions",
+    highlighted: false,
+  },
+  {
+    id: "bundle-20",
+    name: "20 Session Bundle",
+    tagline: "A complete energetic overhaul",
+    sessions: 20,
+    duration: "20 × 1 hour",
+    price: "$1,000",
+    perSession: "$50 per session",
+    savingsNote: "Save $800 vs. single sessions",
+    bestFor: "Clients seeking long-term, transformational healing. The most powerful path to sustained energetic wellbeing.",
+    includes: [
+      "Twenty individual 60-minute sessions",
+      "Full aura scan at each visit",
       "Full intake review and bespoke healing roadmap",
       "Highest-priority scheduling — your slots reserved first",
-      "Detailed progress report after sessions 3, 6, and 10",
+      "Detailed progress reports throughout",
       "Unlimited WhatsApp support between sessions",
       "Personalised meditation audio recording",
       "Complimentary 15-min check-in call one month after completion",
     ],
-    cta: "Book the Transformation",
+    cta: "Book 20 Sessions",
     highlighted: false,
   },
 ];
@@ -118,7 +142,8 @@ function mapSanityToPackage(p: ReturnType<typeof Object.create>): Package {
     tagline: p.tagline,
     sessions: p.sessions,
     duration: p.duration,
-    priceNote: p.price || "Pricing coming soon",
+    price: p.price || "",
+    perSession: p.perSession || "",
     savingsNote: p.savingsNote,
     bestFor: p.bestFor,
     includes: p.includes || [],
@@ -137,7 +162,10 @@ export default function Packages() {
 
   useEffect(() => {
     fetchPackages().then((data) => {
-      if (data.length > 0) setPackages(data.map(mapSanityToPackage));
+      if (data.length > 0) {
+        const mapped = data.map(mapSanityToPackage).filter(p => p.price);
+        if (mapped.length > 0) setPackages(mapped);
+      }
     });
     fetchSiteSettings().then((s) => {
       if (s?.contactPhone) setContactPhone(s.contactPhone);
@@ -165,29 +193,56 @@ export default function Packages() {
             className="text-lg text-muted-foreground font-light leading-relaxed">
             Every journey is different. Whether you are taking your first step or committing to deep transformation, there is a package designed for where you are right now.
           </motion.p>
-
-          {/* Pricing notice */}
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
-            className="inline-flex items-center gap-2 mt-6 bg-amber-50 border border-amber-200 text-amber-700 text-xs font-medium px-4 py-2 rounded-full">
-            <Tag size={12} />
-            Pricing will be added shortly — all packages are available to enquire about now.
-          </motion.div>
         </div>
       </section>
 
-      {/* Package grid */}
-      <div className="container mx-auto px-4 md:px-6 py-16 max-w-6xl w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 items-start">
-          {packages.map((pkg, i) => (
+      <div className="container mx-auto px-4 md:px-6 py-12 max-w-6xl w-full space-y-10">
+
+        {/* Free consultation banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-primary/25 bg-primary/5 px-6 py-5"
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center flex-shrink-0">
+              <Phone size={18} className="text-primary" />
+            </div>
+            <div>
+              <p className="font-medium text-foreground text-sm">Free Phone Consultation — 15 minutes</p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Not sure which package is right for you? Book a free call with Rosalyn first.
+              </p>
+            </div>
+          </div>
+          <a href={`tel:${contactPhone.replace(/\D/g, "")}`}>
+            <Button variant="outline" size="sm" className="rounded-xl whitespace-nowrap border-primary/40 text-primary hover:bg-primary/10">
+              Call {contactPhone}
+            </Button>
+          </a>
+        </motion.div>
+
+        {/* Package grid — top row: 3 cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+          {packages.slice(0, 3).map((pkg, i) => (
             <PackageCard key={pkg.id} pkg={pkg} index={i} />
           ))}
         </div>
+
+        {/* Package grid — bottom row: 2 cards centred */}
+        {packages.length > 3 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start max-w-3xl mx-auto w-full">
+            {packages.slice(3).map((pkg, i) => (
+              <PackageCard key={pkg.id} pkg={pkg} index={i + 3} />
+            ))}
+          </div>
+        )}
 
         {/* Comparison note */}
         <motion.div
           initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
-          className="mt-14 rounded-2xl bg-secondary/20 border border-secondary/40 px-8 py-8"
+          className="rounded-2xl bg-secondary/20 border border-secondary/40 px-8 py-8"
         >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             {[
@@ -198,10 +253,10 @@ export default function Packages() {
               },
               {
                 icon: <Star size={22} className="text-amber-500" />,
-                title: "Why a package?",
+                title: "Why a bundle?",
                 items: [
                   "Energy healing builds on itself — each session deepens the last",
-                  "Packages ensure continuity and lasting results",
+                  "Bundles ensure continuity and lasting results",
                   "You receive better value and dedicated priority care",
                 ],
               },
@@ -210,7 +265,7 @@ export default function Packages() {
                 title: "Not sure which to choose?",
                 items: [
                   "Book a single session first to experience the work",
-                  "Or contact Rosalyn directly — she will recommend the right fit for your needs",
+                  "Or call Rosalyn for a free 15-minute consultation",
                 ],
               },
             ].map(({ icon, title, items }) => (
@@ -230,7 +285,7 @@ export default function Packages() {
         {/* Contact CTA */}
         <motion.div
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.75 }}
-          className="mt-10 text-center"
+          className="text-center"
         >
           <p className="text-muted-foreground text-sm mb-4">
             Have questions before choosing? Rosalyn is happy to help you pick the right path.
@@ -260,7 +315,7 @@ function PackageCard({ pkg, index }: { pkg: Package; index: number }) {
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
       className={`relative flex flex-col rounded-2xl border overflow-hidden transition-shadow hover:shadow-lg ${
         pkg.highlighted
           ? "border-primary/40 shadow-md ring-2 ring-primary/15"
@@ -300,14 +355,14 @@ function PackageCard({ pkg, index }: { pkg: Package; index: number }) {
         <h3 className="font-serif text-xl font-medium text-foreground mb-1">{pkg.name}</h3>
         <p className="text-sm text-muted-foreground leading-snug">{pkg.tagline}</p>
 
-        {/* Price placeholder */}
+        {/* Price */}
         <div className="mt-5 mb-1">
           <div className="flex items-baseline gap-2">
-            <span className="font-serif text-3xl font-light text-foreground/30">—</span>
-            <span className="text-xs text-muted-foreground/60 italic">pricing coming soon</span>
+            <span className="font-serif text-4xl font-light text-foreground">{pkg.price}</span>
           </div>
+          <p className="text-xs text-muted-foreground mt-0.5">{pkg.perSession}</p>
           {pkg.savingsNote && (
-            <p className={`text-xs font-medium mt-1 ${isAmber ? "text-amber-600" : "text-primary"}`}>
+            <p className={`text-xs font-medium mt-1.5 ${isAmber ? "text-amber-600" : "text-primary"}`}>
               {pkg.savingsNote}
             </p>
           )}
