@@ -445,16 +445,16 @@ export default function Book() {
                       <CardContent className="space-y-5">
                         <div className="space-y-2">
                           <Label htmlFor="name">Full Name</Label>
-                          <Input id="name" ref={nameRef} placeholder="Jane Doe" required className="bg-background" data-testid="input-name" />
+                          <Input id="name" ref={nameRef} placeholder="Jane Doe" required className="bg-background" data-testid="input-name" defaultValue={intake?.name ?? ""} />
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                           <div className="space-y-2">
                             <Label htmlFor="email">Email Address</Label>
-                            <Input type="email" id="email" placeholder="jane@example.com" required className="bg-background" data-testid="input-email" />
+                            <Input type="email" id="email" placeholder="jane@example.com" required className="bg-background" data-testid="input-email" defaultValue={intake?.email ?? ""} />
                           </div>
                           <div className="space-y-2">
                             <Label htmlFor="phone">Phone Number</Label>
-                            <Input type="tel" id="phone" placeholder="(555) 123-4567" className="bg-background" data-testid="input-phone" />
+                            <Input type="tel" id="phone" placeholder="(555) 123-4567" className="bg-background" data-testid="input-phone" defaultValue={intake?.phone ?? ""} />
                           </div>
                         </div>
                       </CardContent>
@@ -517,7 +517,6 @@ export default function Book() {
                         <p className="text-xs uppercase tracking-widest text-primary font-medium mb-2">Intake summary</p>
                         {[
                           { label: "Concern",      value: intake.concern },
-                          { label: "Duration",     value: intake.duration },
                           { label: "Session type", value: intake.sessionType },
                         ].map(({ label, value }) => (
                           <div key={label}>
