@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, ShieldCheck, CalendarDays, ClipboardList, ChevronLeft } from "lucide-react";
 import { IntakeQuestionnaire, IntakeAnswers } from "@/components/IntakeQuestionnaire";
@@ -25,42 +25,48 @@ declare global {
 
 const CALENDLY_URL = "https://calendly.com/rosalyngoodvibes/new-meeting";
 
-export default function Book() {
-  const [step, setStep]     = useState<BookStep>("intake");
-  const [intake, setIntake] = useState<IntakeAnswers | null>(null);
+/* ── Calendly widget — self-contained so init runs on mount ── */
+function CalendlyWidget({ name, email }: { name: string; email: string }) {
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  /* Load Calendly script and init the widget once we reach step 2 */
   useEffect(() => {
-    if (step !== "schedule") return;
-
-    function initWidget() {
+    function init() {
       window.Calendly?.initInlineWidget({
         url: CALENDLY_URL,
-        parentElement: document.getElementById("calendly-container"),
-        prefill: {
-          name:  intake?.name  ?? "",
-          email: intake?.email ?? "",
-        },
+        parentElement: containerRef.current,
+        prefill: { name, email },
       });
     }
 
-    const existing = document.getElementById("calendly-script");
+    const existing = document.getElementById("calendly-script") as HTMLScriptElement | null;
     if (existing) {
-      // Script already present — init immediately (or wait a tick if still loading)
       if (window.Calendly) {
-        initWidget();
+        init();
       } else {
-        existing.addEventListener("load", initWidget, { once: true });
+        existing.addEventListener("load", init, { once: true });
       }
     } else {
       const s = document.createElement("script");
-      s.id  = "calendly-script";
-      s.src = "https://assets.calendly.com/assets/external/widget.js";
+      s.id    = "calendly-script";
+      s.src   = "https://assets.calendly.com/assets/external/widget.js";
       s.async = true;
-      s.onload = initWidget;
+      s.onload = init;
       document.head.appendChild(s);
     }
-  }, [step]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return (
+    <div
+      ref={containerRef}
+      className="rounded-2xl overflow-hidden border border-border/40 shadow-sm"
+      style={{ minWidth: "320px", height: "700px" }}
+    />
+  );
+}
+
+export default function Book() {
+  const [step, setStep]     = useState<BookStep>("intake");
+  const [intake, setIntake] = useState<IntakeAnswers | null>(null);
 
   function handleIntakeComplete(answers: IntakeAnswers) {
     setIntake(answers);
@@ -171,10 +177,9 @@ export default function Book() {
 
                 {/* Calendly widget */}
                 <div className="lg:col-span-3">
-                  <div
-                    id="calendly-container"
-                    className="rounded-2xl overflow-hidden border border-border/40 shadow-sm"
-                    style={{ minWidth: "320px", height: "700px" }}
+                  <CalendlyWidget
+                    name={intake?.name ?? ""}
+                    email={intake?.email ?? ""}
                   />
                 </div>
 
