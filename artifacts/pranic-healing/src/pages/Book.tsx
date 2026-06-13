@@ -11,25 +11,56 @@ const STEP_META: Record<BookStep, { num: number; label: string; hint: string }> 
 };
 const STEPS: BookStep[] = ["intake", "schedule"];
 
-/* Inject / remove the Calendly script */
-function useCalendlyScript(active: boolean) {
-  useEffect(() => {
-    if (!active) return;
-    const id = "calendly-script";
-    if (document.getElementById(id)) return;
-    const s = document.createElement("script");
-    s.id = id;
-    s.src = "https://assets.calendly.com/assets/external/widget.js";
-    s.async = true;
-    document.head.appendChild(s);
-  }, [active]);
+declare global {
+  interface Window {
+    Calendly?: {
+      initInlineWidget: (opts: {
+        url: string;
+        parentElement: HTMLElement | null;
+        prefill?: { name?: string; email?: string };
+      }) => void;
+    };
+  }
 }
+
+const CALENDLY_URL = "https://calendly.com/rosalyngoodvibes/new-meeting";
 
 export default function Book() {
   const [step, setStep]     = useState<BookStep>("intake");
   const [intake, setIntake] = useState<IntakeAnswers | null>(null);
 
-  useCalendlyScript(step === "schedule");
+  /* Load Calendly script and init the widget once we reach step 2 */
+  useEffect(() => {
+    if (step !== "schedule") return;
+
+    function initWidget() {
+      window.Calendly?.initInlineWidget({
+        url: CALENDLY_URL,
+        parentElement: document.getElementById("calendly-container"),
+        prefill: {
+          name:  intake?.name  ?? "",
+          email: intake?.email ?? "",
+        },
+      });
+    }
+
+    const existing = document.getElementById("calendly-script");
+    if (existing) {
+      // Script already present — init immediately (or wait a tick if still loading)
+      if (window.Calendly) {
+        initWidget();
+      } else {
+        existing.addEventListener("load", initWidget, { once: true });
+      }
+    } else {
+      const s = document.createElement("script");
+      s.id  = "calendly-script";
+      s.src = "https://assets.calendly.com/assets/external/widget.js";
+      s.async = true;
+      s.onload = initWidget;
+      document.head.appendChild(s);
+    }
+  }, [step]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function handleIntakeComplete(answers: IntakeAnswers) {
     setIntake(answers);
@@ -37,13 +68,7 @@ export default function Book() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  const currentIdx  = STEPS.indexOf(step);
-
-  /* Build the Calendly URL with optional pre-fill */
-  const calendlyBase = "https://calendly.com/rosalyngoodvibes/new-meeting";
-  const calendlyUrl = intake
-    ? `${calendlyBase}?name=${encodeURIComponent(intake.name ?? "")}&email=${encodeURIComponent(intake.email ?? "")}`
-    : calendlyBase;
+  const currentIdx = STEPS.indexOf(step);
 
   return (
     <div className="flex flex-col items-center w-full bg-background pb-24">
@@ -147,8 +172,8 @@ export default function Book() {
                 {/* Calendly widget */}
                 <div className="lg:col-span-3">
                   <div
-                    className="calendly-inline-widget rounded-2xl overflow-hidden border border-border/40 shadow-sm"
-                    data-url={calendlyUrl}
+                    id="calendly-container"
+                    className="rounded-2xl overflow-hidden border border-border/40 shadow-sm"
                     style={{ minWidth: "320px", height: "700px" }}
                   />
                 </div>
