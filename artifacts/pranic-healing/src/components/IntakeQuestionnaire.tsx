@@ -228,7 +228,7 @@ export function IntakeQuestionnaire({ onComplete }: Props) {
           <Field label="Phone Number" required>
             <input
               type="tel" value={form.phone} onChange={e => set("phone", e.target.value)}
-              placeholder="(805) 555-0123" className={`${inputCls} ${ring("phone")}`}
+              placeholder="(805) 234-1108" className={`${inputCls} ${ring("phone")}`}
               data-testid="intake-phone"
             />
           </Field>

@@ -157,8 +157,8 @@ function mapSanityToPackage(p: ReturnType<typeof Object.create>): Package {
 /* ── Component ───────────────────────────────────────────────── */
 export default function Packages() {
   const [packages, setPackages] = useState<Package[]>(FALLBACK_PACKAGES);
-  const [contactPhone, setContactPhone] = useState("(805) 555-0123");
-  const [contactEmail, setContactEmail] = useState("rosalyn@zenenergetics.com");
+  const [contactPhone, setContactPhone] = useState("(805) 234-1108");
+  const [contactEmail, setContactEmail] = useState("info@zenenergetics.org");
 
   useEffect(() => {
     fetchPackages().then((data) => {
