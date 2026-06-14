@@ -205,7 +205,6 @@ export default function Home() {
         </div>
       </section>
 
-      <NewsletterSignup variant="banner" />
       <DiscoveryPopup />
       <ScrollBookCTA />
     </div>

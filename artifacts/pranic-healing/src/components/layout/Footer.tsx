@@ -9,21 +9,29 @@ export function Footer() {
   return (
     <footer className="mt-auto border-t" style={{ background: "linear-gradient(180deg, hsl(270 38% 88%) 0%, hsl(268 32% 86%) 100%)" }}>
       {/* Newsletter strip */}
-      <div className="border-b border-border/60 py-10">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-6 max-w-3xl">
-            <div className="flex-1 min-w-0">
-              <h4 className="font-serif text-xl font-light text-foreground mb-1">
-                {t.newsletter.footer_headline}
-              </h4>
-              <p className="text-sm text-muted-foreground">
-                {t.newsletter.footer_subtitle}
-              </p>
-            </div>
-            <div className="w-full md:w-72 flex-shrink-0">
-              <NewsletterSignup variant="footer" />
-            </div>
+      <div className="border-b border-border/60 py-12">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl">
+          <div className="text-center mb-6">
+            <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">{t.newsletter.label}</p>
+            <h4 className="font-serif text-2xl md:text-3xl font-light text-foreground mb-2">
+              {t.newsletter.headline}
+            </h4>
+            <p className="text-sm text-muted-foreground max-w-xl mx-auto leading-relaxed">
+              {t.newsletter.subtitle}
+            </p>
           </div>
+          <div className="flex flex-wrap items-center justify-center gap-6 mb-6 text-xs text-muted-foreground">
+            {[t.newsletter.benefit_1, t.newsletter.benefit_2, t.newsletter.benefit_3].map(b => (
+              <div key={b} className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block" />
+                <span>{b}</span>
+              </div>
+            ))}
+          </div>
+          <div className="max-w-md mx-auto">
+            <NewsletterSignup variant="footer" />
+          </div>
+          <p className="text-center text-xs text-muted-foreground mt-3">{t.newsletter.privacy}</p>
         </div>
       </div>
 

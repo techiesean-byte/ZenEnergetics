@@ -18,6 +18,7 @@ import Blog from "@/pages/Blog";
 import BlogArticle from "@/pages/BlogArticle";
 import About from "@/pages/About";
 import Packages from "@/pages/Packages";
+import { FeedbackWidget } from "@/components/FeedbackWidget";
 
 const queryClient = new QueryClient();
 
@@ -58,6 +59,7 @@ function App() {
           <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
             <Router />
           </WouterRouter>
+          <FeedbackWidget />
           <Toaster />
         </TooltipProvider>
       </LanguageProvider>
