@@ -21,35 +21,42 @@ export function FeedbackWidget() {
   }
 
   return (
-    <div className="fixed right-0 top-1/2 -translate-y-1/2 z-50 flex items-center">
-
-      {/* Vertical tab */}
+    <>
+      {/* Vertical tab — independently fixed, never moves */}
       <AnimatePresence>
         {!open && (
           <motion.button
-            initial={{ opacity: 0, x: 40 }}
+            key="tab"
+            initial={{ opacity: 0, x: 56 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 40 }}
-            transition={{ duration: 0.3 }}
+            exit={{ opacity: 0, x: 56 }}
+            transition={{ duration: 0.25 }}
             onClick={() => setOpen(true)}
-            className="bg-primary text-primary-foreground text-[11px] font-semibold tracking-widest uppercase px-2 py-4 rounded-l-lg shadow-lg hover:bg-primary/90 transition-colors cursor-pointer"
-            style={{ writingMode: "vertical-rl", textOrientation: "mixed", transform: "rotate(180deg)" }}
             aria-label="Open feedback"
+            className="fixed right-0 z-50 bg-primary text-primary-foreground text-[11px] font-semibold tracking-widest uppercase px-2 py-4 rounded-l-lg shadow-lg hover:bg-primary/90 transition-colors cursor-pointer"
+            style={{
+              top: "50%",
+              transform: "translateY(-50%) rotate(180deg)",
+              writingMode: "vertical-rl",
+              textOrientation: "mixed",
+            }}
           >
             Feedback
           </motion.button>
         )}
       </AnimatePresence>
 
-      {/* Panel */}
+      {/* Panel — independently fixed, slides in from the right */}
       <AnimatePresence>
         {open && (
           <motion.div
+            key="panel"
             initial={{ opacity: 0, x: 320 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 320 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="w-72 bg-background border border-border/60 rounded-l-2xl shadow-2xl overflow-hidden"
+            className="fixed right-0 z-50 w-72 bg-background border border-border/60 rounded-l-2xl shadow-2xl overflow-hidden"
+            style={{ top: "50%", transform: "translateY(-50%)" }}
           >
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-border/40 bg-secondary/20">
@@ -103,6 +110,6 @@ export function FeedbackWidget() {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </>
   );
 }
