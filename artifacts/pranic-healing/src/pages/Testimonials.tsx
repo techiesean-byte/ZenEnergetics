@@ -4,11 +4,11 @@ import { Star, ExternalLink } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { fetchTestimonials, fetchSiteSettings } from "@/lib/sanity";
-import reviewAleks from "@/assets/review-aleks.jpeg";
-import reviewYogaJess from "@/assets/review-yogajess.jpeg";
-import reviewCarolina from "@/assets/review-carolina.jpeg";
-import reviewTeri from "@/assets/review-teri.jpeg";
-import reviewDiane from "@/assets/review-diane.jpeg";
+import reviewAleks from "@/assets/review-aleks-crop.jpeg";
+import reviewYogaJess from "@/assets/review-yogajess-crop.jpeg";
+import reviewCarolina from "@/assets/review-carolina-crop.jpeg";
+import reviewTeri from "@/assets/review-teri-crop.jpeg";
+import reviewDiane from "@/assets/review-diane-crop.jpeg";
 
 const FALLBACK_TESTIMONIALS = [
   { name: "Sarah Jenkins", city: "Seattle, WA", story: "I had been suffering from chronic migraines for years. After just three sessions, the intensity and frequency reduced dramatically. The gentle approach made me feel so safe and cared for.", condition: "Chronic Migraines", initials: "SJ", _id: "1", order: 1 },
