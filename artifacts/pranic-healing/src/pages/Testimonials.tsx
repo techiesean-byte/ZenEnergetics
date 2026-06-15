@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Star, ExternalLink } from "lucide-react";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { fetchTestimonials, fetchSiteSettings } from "@/lib/sanity";
+import reviewAleks from "@/assets/review-aleks.jpeg";
+import reviewYogaJess from "@/assets/review-yogajess.jpeg";
+import reviewCarolina from "@/assets/review-carolina.jpeg";
+import reviewTeri from "@/assets/review-teri.jpeg";
+import reviewDiane from "@/assets/review-diane.jpeg";
 
 const FALLBACK_TESTIMONIALS = [
   { name: "Sarah Jenkins", city: "Seattle, WA", story: "I had been suffering from chronic migraines for years. After just three sessions, the intensity and frequency reduced dramatically. The gentle approach made me feel so safe and cared for.", condition: "Chronic Migraines", initials: "SJ", _id: "1", order: 1 },
@@ -20,6 +25,7 @@ const ALIGNABLE_REVIEWS = [
     name: "Aleks S",
     business: "Unicorn Petals",
     initials: "AS",
+    image: reviewAleks,
     quote: "It is with much gratitude that I am writing this letter to recommend Miss Rosalyn Piza as a Pranic Healer practitioner. We have had seven sessions, and I have to say that the sessions and Rosalyn's performance just became better and better. Rosalyn took it upon herself to get to know me more in depth as to know how to better be of service. She always made sure to choose the right Pranic Healing protocol in each session. As our sessions continued, I started to get better — emotionally, I started feeling more optimistic for life. My relationship with my family started to get better. I began to see things with more clarity. On the 2nd of September I had a rollerskate accident and my knee was badly injured. Two days later, Rosalyn focused a session on helping my knee — by the end of the session, I was able to bend my leg at a 90 degree angle, something I was sure I would not be able to do for at least one more week. I think Rosalyn is a gem within the Pranic Healing community. I highly recommend her.",
     highlight: "Knee healed in one session",
   },
@@ -28,6 +34,7 @@ const ALIGNABLE_REVIEWS = [
     name: "Yoga Jess",
     business: "Yoga Jess",
     initials: "YJ",
+    image: reviewYogaJess,
     quote: "Rosalyn takes great care in providing the best service and support in her practice. She has a great sense of humor and as we know humor is healing. I recommend my friend to provide you with a thorough healing session with support before, during and after your session.",
     highlight: "Thorough care before, during & after",
   },
@@ -36,6 +43,7 @@ const ALIGNABLE_REVIEWS = [
     name: "Carolina R. Rodriguez",
     business: "DrCarolinaRodriguez.com",
     initials: "CR",
+    image: reviewCarolina,
     quote: "Rosalyn is gentle and intentional in her energy healing. Highly recommend.",
     highlight: "Gentle and intentional",
   },
@@ -44,6 +52,7 @@ const ALIGNABLE_REVIEWS = [
     name: "Teri Miller",
     business: "Angelspeakers LLC",
     initials: "TM",
+    image: reviewTeri,
     quote: "I highly recommend connecting with Rosalyn and her amazing healing energy. She is a bright light in our world.",
     highlight: "A bright light in our world",
   },
@@ -52,6 +61,7 @@ const ALIGNABLE_REVIEWS = [
     name: "Diane Beyersdorfer",
     business: "Imagination of Becoming",
     initials: "DB",
+    image: reviewDiane,
     quote: "Such a beautiful soul.",
     highlight: "Beautiful soul",
   },
@@ -191,7 +201,8 @@ export default function Testimonials() {
                   </CardHeader>
                   <CardContent className="pt-0">
                     <div className="flex items-center gap-3 pt-4 border-t border-border/50">
-                      <Avatar className="h-10 w-10 border border-primary/20">
+                      <Avatar className="h-12 w-12 border border-primary/20">
+                        <AvatarImage src={r.image} alt={r.name} className="object-cover" />
                         <AvatarFallback className="bg-primary/15 text-primary font-medium text-sm">{r.initials}</AvatarFallback>
                       </Avatar>
                       <div>
