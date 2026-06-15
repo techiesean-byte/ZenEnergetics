@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Waves, Sparkles, Sun, Moon, Users, HeartHandshake, Heart, Leaf, Star, Wind, Zap, ArrowRight, LucideIcon } from "lucide-react";
 import { fetchServices } from "@/lib/sanity";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 const ICON_MAP: Record<string, LucideIcon> = {
   Waves, Sparkles, Sun, Moon, Users, HeartHandshake, Heart, Leaf, Star, Wind, Zap,
@@ -29,6 +30,7 @@ const FALLBACK_SERVICES = [
 ];
 
 export default function Services() {
+  usePageMeta({ title: "Healing Services", description: "Explore Pranic Healing services offered by Rosalyn Piza at Zen Energetics in Paso Robles, CA. Sessions available for stress, pain, anxiety, relationships, and spiritual growth — in-person or remotely." });
   const [services, setServices] = useState(FALLBACK_SERVICES);
 
   useEffect(() => {

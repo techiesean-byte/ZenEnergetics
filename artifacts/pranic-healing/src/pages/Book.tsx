@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from "react";
+import { usePageMeta } from "@/lib/usePageMeta";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, ShieldCheck, CalendarDays, ClipboardList, ChevronLeft } from "lucide-react";
 import { IntakeQuestionnaire, IntakeAnswers } from "@/components/IntakeQuestionnaire";
 
 type BookStep = "intake" | "schedule";
+
 
 const STEP_META: Record<BookStep, { num: number; label: string; hint: string }> = {
   intake:   { num: 1, label: "About You",         hint: "A few questions to prepare your session" },
@@ -65,6 +67,7 @@ function CalendlyWidget({ name, email }: { name: string; email: string }) {
 }
 
 export default function Book() {
+  usePageMeta({ title: "Book a Pranic Healing Session", description: "Book an in-person or remote Pranic Healing session with Rosalyn Piza at Zen Energetics in Paso Robles, CA. Free consultation available. Easy online scheduling." });
   const [step, setStep]     = useState<BookStep>("intake");
   const [intake, setIntake] = useState<IntakeAnswers | null>(null);
 

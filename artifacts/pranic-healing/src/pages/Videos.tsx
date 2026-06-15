@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { usePageMeta } from "@/lib/usePageMeta";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -62,6 +63,7 @@ const videos = [
 ];
 
 export default function Videos() {
+  usePageMeta({ title: "Healing Videos & Guided Meditations", description: "Watch guided meditations, energy healing demonstrations, and educational videos from Zen Energetics. Explore Pranic Healing techniques from the comfort of your home." });
   const [activeVideo, setActiveVideo] = useState<number | null>(null);
 
   const openVideo = (id: number) => setActiveVideo(id);

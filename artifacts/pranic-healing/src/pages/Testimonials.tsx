@@ -4,6 +4,7 @@ import { Star, ExternalLink } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { fetchTestimonials, fetchSiteSettings } from "@/lib/sanity";
+import { usePageMeta } from "@/lib/usePageMeta";
 import reviewAleks from "@/assets/review-aleks-crop.jpeg";
 import reviewYogaJess from "@/assets/review-yogajess-crop.jpeg";
 import reviewCarolina from "@/assets/review-carolina-crop.jpeg";
@@ -72,6 +73,7 @@ const FALLBACK_COUNT = 127;
 const FALLBACK_REVIEW_URL = "https://www.google.com/search?q=pranic+healing+rosalyn+piza";
 
 export default function Testimonials() {
+  usePageMeta({ title: "Client Reviews & Testimonials", description: "Read real client stories and reviews for Rosalyn Piza at Zen Energetics in Paso Robles, CA. See how Pranic Healing has helped with pain, anxiety, emotional healing, and spiritual growth." });
   const [testimonials, setTestimonials] = useState(FALLBACK_TESTIMONIALS);
   const [rating, setRating] = useState(FALLBACK_RATING);
   const [reviewCount, setReviewCount] = useState(FALLBACK_COUNT);

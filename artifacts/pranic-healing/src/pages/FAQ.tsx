@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ArrowRight, HelpCircle } from "lucide-react";
 import { fetchFaqs } from "@/lib/sanity";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 const FALLBACK_FAQS = [
   {
@@ -63,6 +64,7 @@ const FALLBACK_FAQS = [
 ];
 
 export default function FAQ() {
+  usePageMeta({ title: "Frequently Asked Questions", description: "Answers to common questions about Pranic Healing — what to expect, how sessions work, costs, and more. Learn everything you need to know before booking with Rosalyn Piza in Paso Robles, CA." });
   const [faqs, setFaqs] = useState(FALLBACK_FAQS);
 
   useEffect(() => {

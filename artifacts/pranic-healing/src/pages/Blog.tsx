@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { articles as localArticles } from "@/data/articles";
 import { NewsletterSignup } from "@/components/NewsletterSignup";
 import { fetchArticles, urlFor } from "@/lib/sanity";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24 },
@@ -39,6 +40,7 @@ function getCategories(articles: DisplayArticle[]): string[] {
 }
 
 export default function Blog() {
+  usePageMeta({ title: "Articles & Healing Insights", description: "Read articles on energy healing, chakra care, pranic healing techniques, and holistic wellness from Rosalyn Piza at Zen Energetics in Paso Robles, CA." });
   const [allArticles, setAllArticles] = useState<DisplayArticle[]>(localDisplay);
   const [activeCategory, setActiveCategory] = useState<string>("All");
 

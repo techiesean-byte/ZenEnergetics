@@ -5,6 +5,7 @@ import { Award, BookOpen, Heart, Leaf, Star, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import healerImg from "../assets/healer-photo.jpeg";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24 },
@@ -58,6 +59,7 @@ const FALLBACK_BIO2 = "Based in Paso Robles, Central California, Rosalyn works f
 const FALLBACK_QUOTE = "I'm looking forward to offering Pranic Healing sessions to help others find relaxation, energetic balance, and explore a deeper connection with one self's inner landscape — just as these practices have transformed my own life.";
 
 export default function About() {
+  usePageMeta({ title: "About Rosalyn Piza", description: "Meet Rosalyn Piza, certified Pranic Healer and founder of Zen Energetics in Paso Robles, CA. Dedicated to helping others through energy healing, non-dualism, and compassionate holistic care." });
   const [bio1, setBio1] = useState(FALLBACK_BIO1);
   const [bio2, setBio2] = useState(FALLBACK_BIO2);
   const [quote, setQuote] = useState(FALLBACK_QUOTE);

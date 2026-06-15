@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { usePageMeta } from "@/lib/usePageMeta";
 import { Link } from "wouter";
 import { ArrowRight, Info, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,7 @@ import whatIs2Img from "../assets/what-is-2.png";
 import heroImg from "../assets/hero.png";
 
 export default function WhatIsPranicHealing() {
+  usePageMeta({ title: "What is Pranic Healing?", description: "Learn how Pranic Healing works — a gentle, no-touch energy healing system that cleanses and energizes the body's energy field to accelerate natural healing. Available in Paso Robles, CA and remotely." });
   const staggerContainer = {
     hidden: { opacity: 0 },
     show: {

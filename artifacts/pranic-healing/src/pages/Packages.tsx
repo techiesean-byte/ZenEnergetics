@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
+import { usePageMeta } from "@/lib/usePageMeta";
 import { CheckCircle2, Sparkles, Star, Zap, ArrowRight, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { fetchPackages, fetchSiteSettings } from "@/lib/sanity";
@@ -156,6 +157,7 @@ function mapSanityToPackage(p: ReturnType<typeof Object.create>): Package {
 
 /* ── Component ───────────────────────────────────────────────── */
 export default function Packages() {
+  usePageMeta({ title: "Session Packages & Pricing", description: "Affordable Pranic Healing session packages with Rosalyn Piza in Paso Robles, CA. Single sessions from $90, multi-session packages up to $1,000 with savings. Free consultation available." });
   const [packages, setPackages] = useState<Package[]>(FALLBACK_PACKAGES);
   const [contactPhone, setContactPhone] = useState("(805) 234-1108");
   const [contactEmail, setContactEmail] = useState("info@zenenergetics.org");

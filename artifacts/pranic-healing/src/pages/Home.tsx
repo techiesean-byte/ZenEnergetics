@@ -9,6 +9,7 @@ import { DiscoveryPopup } from "@/components/DiscoveryPopup";
 import { AuraSlider } from "@/components/AuraSlider";
 import { ScrollBookCTA } from "@/components/ScrollBookCTA";
 import { fetchAboutBio, fetchSiteSettings } from "@/lib/sanity";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 import heroImg from "../assets/hero.png";
 import whatIs1Img from "../assets/what-is-1.png";
@@ -21,6 +22,7 @@ const DEFAULT_BIO1 = "Through years of exploring various healing and spiritual m
 const DEFAULT_BIO2 = "Based in Paso Robles, Central California, Rosalyn works full-time as a Water Utility Engineer for the City. On weekends and special events, she also works at DENO Winery — bringing the same care and presence to every role she holds.";
 
 export default function Home() {
+  usePageMeta({ title: "Pranic Healing with Rosalyn Piza", description: "Experience transformative Pranic Healing with Rosalyn Piza in Paso Robles, CA. Zen Energetics offers in-person and remote energy healing sessions for physical pain, stress, anxiety, and spiritual wellness." });
   const [headline, setHeadline] = useState(DEFAULT_HEADLINE);
   const [subtext, setSubtext] = useState(DEFAULT_SUBTEXT);
   const [bio1, setBio1] = useState(DEFAULT_BIO1);

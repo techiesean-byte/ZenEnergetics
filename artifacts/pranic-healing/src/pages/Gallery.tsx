@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { usePageMeta } from "@/lib/usePageMeta";
 import heroImg from "../assets/hero.png";
 import whatIs1Img from "../assets/what-is-1.png";
 import whatIs2Img from "../assets/what-is-2.png";
@@ -20,6 +21,7 @@ const images = [
 ];
 
 export default function Gallery() {
+  usePageMeta({ title: "Gallery", description: "A visual journey into the world of Pranic Healing and energetic wellness at Zen Energetics, Paso Robles, CA." });
   return (
     <div className="flex flex-col items-center w-full bg-background pb-24">
       {/* Header */}
