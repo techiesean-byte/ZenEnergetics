@@ -200,15 +200,13 @@ export default function Testimonials() {
                     </p>
                   </CardHeader>
                   <CardContent className="pt-0">
-                    <div className="flex items-center gap-3 pt-4 border-t border-border/50">
-                      <Avatar className="h-12 w-12 border border-primary/20">
-                        <AvatarImage src={r.image} alt={r.name} className="object-cover" />
-                        <AvatarFallback className="bg-primary/15 text-primary font-medium text-sm">{r.initials}</AvatarFallback>
+                    <div className="flex flex-col items-center gap-2 pt-4 border-t border-border/50 text-center">
+                      <Avatar className="h-20 w-20 border-2 border-primary/20 shadow-sm">
+                        <AvatarImage src={r.image} alt={r.name} className="object-cover object-center" />
+                        <AvatarFallback className="bg-primary/15 text-primary font-medium text-lg">{r.initials}</AvatarFallback>
                       </Avatar>
-                      <div>
-                        <p className="text-sm font-medium text-foreground">{r.name}</p>
-                        <p className="text-xs text-muted-foreground">{r.business}</p>
-                      </div>
+                      <p className="text-sm font-medium text-foreground leading-tight">{r.name}</p>
+                      <p className="text-xs text-muted-foreground leading-tight">{r.business}</p>
                     </div>
                   </CardContent>
                 </Card>
