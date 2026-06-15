@@ -14,6 +14,49 @@ const FALLBACK_TESTIMONIALS = [
   { name: "James Wilson", city: "Denver, CO", story: "The lower back pain that had bothered me for a decade vanished. The healer explained exactly which energy centers were congested and cleared them. I feel 10 years younger.", condition: "Lower Back Pain", initials: "JW", _id: "6", order: 6 },
 ];
 
+const ALIGNABLE_REVIEWS = [
+  {
+    id: "a1",
+    name: "Aleks S",
+    business: "Unicorn Petals",
+    initials: "AS",
+    quote: "It is with much gratitude that I am writing this letter to recommend Miss Rosalyn Piza as a Pranic Healer practitioner. We have had seven sessions, and I have to say that the sessions and Rosalyn's performance just became better and better. Rosalyn took it upon herself to get to know me more in depth as to know how to better be of service. She always made sure to choose the right Pranic Healing protocol in each session. As our sessions continued, I started to get better — emotionally, I started feeling more optimistic for life. My relationship with my family started to get better. I began to see things with more clarity. On the 2nd of September I had a rollerskate accident and my knee was badly injured. Two days later, Rosalyn focused a session on helping my knee — by the end of the session, I was able to bend my leg at a 90 degree angle, something I was sure I would not be able to do for at least one more week. I think Rosalyn is a gem within the Pranic Healing community. I highly recommend her.",
+    highlight: "Knee healed in one session",
+  },
+  {
+    id: "a2",
+    name: "Yoga Jess",
+    business: "Yoga Jess",
+    initials: "YJ",
+    quote: "Rosalyn takes great care in providing the best service and support in her practice. She has a great sense of humor and as we know humor is healing. I recommend my friend to provide you with a thorough healing session with support before, during and after your session.",
+    highlight: "Thorough care before, during & after",
+  },
+  {
+    id: "a3",
+    name: "Carolina R. Rodriguez",
+    business: "DrCarolinaRodriguez.com",
+    initials: "CR",
+    quote: "Rosalyn is gentle and intentional in her energy healing. Highly recommend.",
+    highlight: "Gentle and intentional",
+  },
+  {
+    id: "a4",
+    name: "Teri Miller",
+    business: "Angelspeakers LLC",
+    initials: "TM",
+    quote: "I highly recommend connecting with Rosalyn and her amazing healing energy. She is a bright light in our world.",
+    highlight: "A bright light in our world",
+  },
+  {
+    id: "a5",
+    name: "Diane Beyersdorfer",
+    business: "Imagination of Becoming",
+    initials: "DB",
+    quote: "Such a beautiful soul.",
+    highlight: "Beautiful soul",
+  },
+];
+
 const FALLBACK_RATING = 4.9;
 const FALLBACK_COUNT = 127;
 const FALLBACK_REVIEW_URL = "https://www.google.com/search?q=pranic+healing+rosalyn+piza";
@@ -103,7 +146,86 @@ export default function Testimonials() {
         </div>
       </section>
 
-      <div className="container mx-auto px-4 md:px-6 py-16 max-w-6xl">
+      {/* Personal Reviews — Rosalyn */}
+      <section className="w-full py-20 bg-gradient-to-b from-secondary/30 to-secondary/10">
+        <div className="container mx-auto px-4 md:px-6 max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <p className="text-xs font-medium tracking-widest uppercase text-primary mb-3">Personal Reviews</p>
+            <h2 className="font-serif text-3xl md:text-4xl font-light text-foreground mb-3">
+              What Clients Say About Rosalyn
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto text-sm leading-relaxed">
+              Heartfelt words from individuals who have worked directly with Rosalyn Piza.
+            </p>
+          </motion.div>
+
+          <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+            {ALIGNABLE_REVIEWS.map((r, i) => (
+              <motion.div
+                key={r.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="break-inside-avoid"
+              >
+                <Card className="shadow-sm hover:shadow-md transition-shadow border-primary/20 bg-card">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex gap-1 text-primary">
+                        {[1,2,3,4,5].map(s => <Star key={s} size={14} fill="currentColor" />)}
+                      </div>
+                      <span className="text-[10px] font-medium bg-primary/10 text-primary px-2 py-0.5 rounded-full tracking-wide">
+                        Verified Client
+                      </span>
+                    </div>
+                    <p className="text-foreground/90 italic leading-relaxed text-base font-serif">
+                      "{r.quote}"
+                    </p>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <div className="flex items-center gap-3 pt-4 border-t border-border/50">
+                      <Avatar className="h-10 w-10 border border-primary/20">
+                        <AvatarFallback className="bg-primary/15 text-primary font-medium text-sm">{r.initials}</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="text-sm font-medium text-foreground">{r.name}</p>
+                        <p className="text-xs text-muted-foreground">{r.business}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* General Testimonials */}
+      <div className="w-full bg-background">
+        <div className="container mx-auto px-4 md:px-6 pt-6 pb-4 max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-10"
+          >
+            <p className="text-xs font-medium tracking-widest uppercase text-primary mb-3">More Stories</p>
+            <h2 className="font-serif text-3xl md:text-4xl font-light text-foreground">
+              Healing Journeys
+            </h2>
+          </motion.div>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 md:px-6 py-4 pb-16 max-w-6xl">
         <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
           {testimonials.map((t, i) => (
             <motion.div
