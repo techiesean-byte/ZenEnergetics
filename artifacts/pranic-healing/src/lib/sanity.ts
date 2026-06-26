@@ -86,6 +86,8 @@ export interface SanitySettings {
   googleRating?: number
   googleReviewCount?: number
   googleReviewUrl?: string
+  instagramUrl?: string
+  facebookUrl?: string
 }
 
 async function query<T>(groq: string, params?: Record<string, unknown>): Promise<T> {
@@ -177,8 +179,45 @@ export async function fetchSiteSettings(): Promise<SanitySettings | null> {
       `*[_type == "siteSettings"][0] {
         heroHeadline, heroSubtext, homeBio1, homeBio2,
         contactPhone, contactEmail,
-        googleRating, googleReviewCount, googleReviewUrl
+        googleRating, googleReviewCount, googleReviewUrl,
+        instagramUrl, facebookUrl
       }`
     )
   } catch { return null }
+}
+
+export interface SanityVideo {
+  _id: string
+  title: string
+  youtubeId: string
+  description?: string
+  duration?: string
+  order: number
+}
+
+export interface SanityGalleryImage {
+  _id: string
+  image: unknown
+  caption?: string
+  order: number
+}
+
+export async function fetchVideos(): Promise<SanityVideo[]> {
+  try {
+    return (await query<SanityVideo[]>(
+      `*[_type == "video"] | order(order asc) {
+        _id, title, youtubeId, description, duration, order
+      }`
+    )) ?? []
+  } catch { return [] }
+}
+
+export async function fetchGalleryImages(): Promise<SanityGalleryImage[]> {
+  try {
+    return (await query<SanityGalleryImage[]>(
+      `*[_type == "galleryImage"] | order(order asc) {
+        _id, image, caption, order
+      }`
+    )) ?? []
+  } catch { return [] }
 }
