@@ -1,12 +1,13 @@
 [build]
   base    = "."
   command = "pnpm install --no-frozen-lockfile && pnpm --filter @workspace/pranic-healing run build"
-  publish = "artifacts/pranic-healing/dist"
+  publish = "artifacts/pranic-healing/dist/public"
 
 [build.environment]
   NODE_VERSION = "20"
   PNPM_VERSION = "9"
   CI           = "false"
+  BASE_PATH    = "/"
 
 [[redirects]]
   from   = "/*"
