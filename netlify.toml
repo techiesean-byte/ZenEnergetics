@@ -1,0 +1,13 @@
+[build]
+  base    = "."
+  command = "pnpm --filter @workspace/pranic-healing run build"
+  publish = "artifacts/pranic-healing/dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+  PNPM_VERSION = "9"
+
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
