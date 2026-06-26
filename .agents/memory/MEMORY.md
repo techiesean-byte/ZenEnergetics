@@ -1,0 +1,2 @@
+- [Sanity Studio deploy & auth quirks](sanity-studio-deploy.md) — CLI deploy blocked by browser OAuth in Replit; workaround is manual Netlify deploy of built dist/
+- [Sanity token roles](sanity-token-roles.md) — Editor role needed for content writes; Access Manager cannot write documents
