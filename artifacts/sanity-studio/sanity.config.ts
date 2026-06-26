@@ -59,7 +59,7 @@ export default defineConfig({
   title: 'Zen Energetics',
   projectId: '9op646qf',
   dataset: 'production',
-  basePath: '/studio',
+  basePath: '/',
   plugins: [
     structureTool({ structure }),
     visionTool(),
