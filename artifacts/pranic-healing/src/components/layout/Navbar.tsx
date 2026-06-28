@@ -25,6 +25,7 @@ export function Navbar() {
     { href: "/packages", label: t.nav.packages },
     { href: "/blog", label: t.nav.articles },
     { href: "/about", label: t.nav.about },
+    { href: "/future-collective", label: t.nav.future_collective },
   ];
 
   return (

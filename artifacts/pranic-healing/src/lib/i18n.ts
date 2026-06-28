@@ -22,6 +22,7 @@ const en = {
     articles:      "Articles",
     about:         "About",
     book_session:  "Book Session",
+    future_collective: "Future Collective",
   },
   home: {
     hero_headline:  "Discover the Healing Power Within You",
@@ -176,6 +177,7 @@ const fr: Translations = {
     articles:     "Articles",
     about:        "À propos",
     book_session: "Réserver",
+    future_collective: "Future Collective",
   },
   home: {
     hero_headline:  "Découvrez le Pouvoir de Guérison en Vous",
@@ -330,6 +332,7 @@ const es: Translations = {
     articles:     "Artículos",
     about:        "Acerca de",
     book_session: "Reservar",
+    future_collective: "Future Collective",
   },
   home: {
     hero_headline:  "Descubre el Poder Sanador Dentro de Ti",
@@ -484,6 +487,7 @@ const pt: Translations = {
     articles:     "Artigos",
     about:        "Sobre",
     book_session: "Agendar",
+    future_collective: "Future Collective",
   },
   home: {
     hero_headline:  "Descubra o Poder de Cura Dentro de Você",

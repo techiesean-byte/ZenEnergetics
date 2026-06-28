@@ -18,6 +18,7 @@ import Blog from "@/pages/Blog";
 import BlogArticle from "@/pages/BlogArticle";
 import About from "@/pages/About";
 import Packages from "@/pages/Packages";
+import FutureCollective from "@/pages/FutureCollective";
 import { FeedbackWidget } from "@/components/FeedbackWidget";
 
 const queryClient = new QueryClient();
@@ -45,6 +46,7 @@ function Router() {
         <Route path="/blog/:slug" component={BlogArticle} />
         <Route path="/about" component={About} />
         <Route path="/packages" component={Packages} />
+        <Route path="/future-collective" component={FutureCollective} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
